@@ -1,253 +1,604 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary -->
   <title>Værksted — We build AI-native apps. On principle.</title>
-  <meta name="description" content="Værksted is a workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works." />
-  <meta property="og:title" content="Værksted — We build AI-native apps. On principle." />
-  <meta property="og:description" content="A workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works." />
-  <meta property="og:image" content="https://vaerksted.ai/og-image.png" />
-  <meta property="og:image:alt" content="Værksted — we build AI-native apps. On principle." />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:locale" content="en_DK" />
-  <meta property="og:site_name" content="Værksted" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://vaerksted.ai/" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Værksted — We build AI-native apps. On principle." />
-  <meta name="twitter:description" content="A workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works." />
-  <meta name="twitter:image" content="https://vaerksted.ai/og-image.png" />
-  <meta name="twitter:image:alt" content="Værksted — we build AI-native apps. On principle." />
-  <meta name="theme-color" content="#F2EBE0" />
-  <link rel="canonical" href="https://vaerksted.ai/" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <meta name="description" content="Værksted is a workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works.">
+  <meta name="theme-color" content="#F2EBE0">
+  <link rel="canonical" href="https://vaerksted.ai/">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Værksted">
+  <meta property="og:title" content="Værksted — We build AI-native apps. On principle.">
+  <meta property="og:description" content="A workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works.">
+  <meta property="og:url" content="https://vaerksted.ai/">
+  <meta property="og:image" content="https://vaerksted.ai/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Værksted — we build AI-native apps. On principle.">
+  <meta property="og:locale" content="en_DK">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Værksted — We build AI-native apps. On principle.">
+  <meta name="twitter:description" content="A workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works.">
+  <meta name="twitter:image" content="https://vaerksted.ai/og-image.png">
+  <meta name="twitter:image:alt" content="Værksted — we build AI-native apps. On principle.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Værksted",
+    "alternateName": "Vaerksted",
+    "url": "https://vaerksted.ai",
+    "logo": "https://vaerksted.ai/icon-512.png",
+    "description": "A workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works.",
+    "foundingDate": "2026",
+    "foundingLocation": {
+      "@type": "Place",
+      "name": "København, Denmark"
+    },
+    "sameAs": []
+  }
+  </script>
+
   <style>
     :root {
-      --bg:      #F2EBE0;
-      --ink:     #1a1714;
-      --muted:   #5a524a;
-      --ghost:   #9a908a;
-      --rule:    #d0c4b0;
-      --copper:  #A8431F;
+      --paper: #F2EBE0;
+      --paper-dim: #E8DFD0;
+      --ink: #1A1614;
+      --ink-soft: #5C5347;
+      --forge: #A8431F;
+      --rule: rgba(26, 22, 20, 0.15);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
-      background: var(--bg);
+      background: var(--paper);
       color: var(--ink);
       font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 0.9rem;
-      line-height: 1.65;
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    a { color: inherit; }
 
-    .wrap { max-width: 720px; margin: 0 auto; padding: 0 2rem; }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 18% 22%, rgba(168, 67, 31, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 82% 78%, rgba(26, 22, 20, 0.025) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-    .site-header {
-      padding: 3.5rem 2rem 0;
-      max-width: 720px;
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── Top bar ───────────────────────────── */
+    header {
+      padding: 28px 0;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--rule);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    header .mark { color: var(--ink); font-weight: 500; }
+    header .meta { display: flex; gap: 32px; }
+
+    /* ─── Eyebrow shared ────────────────────── */
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--forge);
+      margin-bottom: 56px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--forge);
+    }
+
+    /* ─── Hero ──────────────────────────────── */
+    .hero { padding: 120px 0 96px; }
+    .hero .eyebrow { margin-bottom: 36px; }
+
+    .wordmark {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(80px, 14vw, 210px);
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+      font-weight: 400;
+      margin-bottom: 48px;
+    }
+    .wordmark .ae {
+      color: var(--forge);
+      font-style: italic;
+    }
+
+    .tagline {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(26px, 3.2vw, 40px);
+      line-height: 1.3;
+      color: var(--ink);
+      max-width: 760px;
+      margin-bottom: 56px;
+    }
+
+    .blurb {
+      max-width: 600px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+    }
+    .blurb em {
+      color: var(--ink);
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 16px;
+    }
+
+    /* ─── Principles ────────────────────────── */
+    .principles {
+      padding: 88px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 56px 80px;
+      margin-top: 8px;
+    }
+
+    .principle {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 20px;
       align-items: baseline;
     }
-    .site-header .name { font-family: 'Instrument Serif', serif; font-size: 1.1rem; font-weight: 400; }
-    .site-header .meta { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ghost); }
 
-    .hero { padding: 5rem 2rem 0; max-width: 720px; margin: 0 auto; }
-    .kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ghost); margin-bottom: 2rem; }
-    h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2.4rem, 5.5vw, 3.6rem); font-weight: 400; line-height: 1.1; margin-bottom: 1.75rem; }
-    .hero p { font-size: 0.95rem; color: var(--muted); max-width: 560px; }
-    .hero p em { font-style: italic; color: var(--ink); }
+    .principle-num {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 28px;
+      color: var(--forge);
+      line-height: 1;
+    }
 
-    section { padding: 4.5rem 2rem 0; max-width: 720px; margin: 0 auto; }
-    .section-title { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ghost); margin-bottom: 2.5rem; }
+    .principle-name {
+      font-family: 'Instrument Serif', serif;
+      font-size: 26px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
 
-    .principles-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
-    .principle { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0 1rem; padding: 1.5rem 0; border-top: 1px solid var(--rule); }
-    .principle:last-child { border-bottom: 1px solid var(--rule); }
-    .principle-num { font-family: 'Instrument Serif', serif; font-size: 0.9rem; color: var(--ghost); padding-top: 0.15rem; font-style: italic; }
-    .principle h3 { font-family: 'Instrument Serif', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 0.25rem; }
-    .principle p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
+    .principle-desc {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+    }
 
-    .products-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
-    .product { display: grid; grid-template-columns: 2.5rem 1fr auto; gap: 0 1rem; padding: 1.75rem 0; border-top: 1px solid var(--rule); align-items: start; }
+    /* ─── Products ──────────────────────────── */
+    .products {
+      padding: 88px 0 120px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .product {
+      display: grid;
+      grid-template-columns: 80px 1.1fr 2fr 140px;
+      gap: 32px;
+      padding: 56px 0;
+      border-top: 1px solid var(--rule);
+      align-items: baseline;
+      transition: background 0.4s ease;
+    }
     .product:last-child { border-bottom: 1px solid var(--rule); }
-    .product-num { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; color: var(--ghost); padding-top: 0.4rem; }
-    .product h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.2rem; }
-    .product p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
-    .product-status { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost); white-space: nowrap; padding-top: 0.5rem; }
-    .product-status.live { color: var(--copper); }
+    .product:hover { background: rgba(168, 67, 31, 0.025); }
 
-    .builders-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
-    .builder { display: grid; grid-template-columns: 1fr; padding: 1.75rem 0; border-top: 1px solid var(--rule); }
-    .builder:last-child { border-bottom: 1px solid var(--rule); }
-    .builder h3 { font-family: 'Instrument Serif', serif; font-size: 1.25rem; font-weight: 400; margin-bottom: 0.3rem; }
-    .builder p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; max-width: 540px; }
-    .builders-note { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost); margin-top: 1.5rem; }
+    .product-num {
+      font-size: 11px;
+      color: var(--ink-soft);
+      letter-spacing: 0.15em;
+    }
 
-    .availability { padding: 4.5rem 2rem 0; max-width: 720px; margin: 0 auto; }
-    .availability p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; max-width: 520px; }
-    .availability p strong { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 1.1rem; color: var(--ink); }
-    .availability a { color: var(--copper); text-decoration: none; border-bottom: 1px solid currentColor; }
+    .product-name {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(44px, 5vw, 68px);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+    }
 
-    .site-footer { padding: 4.5rem 2rem 3.5rem; max-width: 720px; margin: 0 auto; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
-    .site-footer .copy { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ghost); }
-    .site-footer .links { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ghost); display: flex; gap: 1.5rem; }
-    .site-footer .links a { text-decoration: none; color: inherit; }
-    .site-footer .links a:hover { color: var(--ink); }
+    .product-desc { font-size: 14px; line-height: 1.65; color: var(--ink); }
+    .product-desc .meaning {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      color: var(--forge);
+      font-size: 17px;
+      display: block;
+      margin-bottom: 10px;
+    }
 
-    @media (max-width: 520px) {
-      .site-header { flex-direction: column; gap: 0.5rem; }
-      .product { grid-template-columns: 2.5rem 1fr; }
-      .product-status { grid-column: 2; padding-top: 0.25rem; }
-      .site-footer { flex-direction: column; gap: 1rem; }
+    .product-status {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-align: right;
+      color: var(--ink-soft);
+    }
+    .product-status.live { color: var(--forge); }
+    .product-status .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--forge);
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    /* ─── Builders ──────────────────────────── */
+    .builders {
+      padding: 88px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .builders-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 56px 80px;
+      margin-top: 8px;
+    }
+
+    .builder-name {
+      font-family: 'Instrument Serif', serif;
+      font-size: 26px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    .builder-bio {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+    }
+
+    .builders-note {
+      margin-top: 48px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    /* ─── Availability ──────────────────────── */
+    .availability {
+      padding: 88px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .availability p {
+      max-width: 640px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+    }
+    .availability strong {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--ink);
+      display: block;
+      margin-bottom: 18px;
+    }
+    .availability a {
+      color: var(--forge);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1px;
+      transition: all 0.2s ease;
+    }
+    .availability a:hover { border-color: var(--forge); }
+
+    /* ─── Footer ────────────────────────────── */
+    footer {
+      padding: 64px 0 48px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    footer a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 2px;
+      transition: all 0.2s ease;
+    }
+    footer a:hover { color: var(--forge); border-color: var(--forge); }
+
+    .footer-mark {
+      font-family: 'Instrument Serif', serif;
+      font-size: 36px;
+      color: var(--ink);
+      text-transform: none;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+    .footer-mark .ae { color: var(--forge); font-style: italic; }
+
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    /* ─── Responsive ────────────────────────── */
+    @media (max-width: 820px) {
+      .container { padding: 0 24px; }
+      .hero { padding: 64px 0 48px; }
+      .principles { padding: 56px 0; }
+      .principles-grid { grid-template-columns: 1fr; gap: 40px; }
+      .principle { grid-template-columns: 40px 1fr; gap: 16px; }
+      .principle-name { font-size: 22px; }
+      .products { padding: 48px 0 64px; }
+      .product {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 36px 0;
+      }
+      .product-status { text-align: left; margin-top: 8px; }
+      .builders { padding: 56px 0; }
+      .builders-grid { grid-template-columns: 1fr; gap: 40px; }
+      .builder-name { font-size: 22px; }
+      .availability { padding: 56px 0; }
+      header .meta { gap: 18px; }
+      header .meta span:nth-child(3) { display: none; }
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+        padding: 48px 0 40px;
+      }
+      .footer-right { align-items: flex-start; }
+    }
+
+    /* ─── Entrance ──────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero .eyebrow  { animation: fadeUp 0.6s ease-out; }
+    .wordmark       { animation: fadeUp 0.8s ease-out 0.15s both; }
+    .tagline        { animation: fadeUp 0.8s ease-out 0.35s both; }
+    .blurb          { animation: fadeUp 0.8s ease-out 0.5s both; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="container">
 
-  <div class="site-header">
-    <span class="name">Værksted</span>
-    <span class="meta">EST. MMXXVI &nbsp;·&nbsp; København &nbsp;·&nbsp; vaerksted.ai</span>
+    <header>
+      <div class="mark">Værksted</div>
+      <div class="meta">
+        <span>EST. MMXXVI</span>
+        <span>København</span>
+        <span>vaerksted.ai</span>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow">A workshop of builders</div>
+      <h1 class="wordmark">V<span class="ae">æ</span>rksted</h1>
+      <p class="tagline">We build AI-native apps. On principle.</p>
+      <p class="blurb">
+        Værksted is Danish for <em>workshop</em>. The apps we make share an infrastructure, a naming tradition rooted in Old Norse, and the principles below — written down because we mean them, not because the brand book required a values page.
+      </p>
+    </section>
+
+    <section class="principles">
+      <div class="eyebrow">Principles</div>
+      <div class="principles-grid">
+
+        <div class="principle">
+          <div class="principle-num">I</div>
+          <div>
+            <h3 class="principle-name">Privacy by default</h3>
+            <p class="principle-desc">Your work is yours. We don't read it, sell it, or train on it. The data stays where it belongs.</p>
+          </div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-num">II</div>
+          <div>
+            <h3 class="principle-name">You pay us, not them</h3>
+            <p class="principle-desc">We make money by selling software, not by selling you. No ads, no trackers, no data brokerage.</p>
+          </div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-num">III</div>
+          <div>
+            <h3 class="principle-name">Simplicity over surface area</h3>
+            <p class="principle-desc">One craft, done well. If a feature doesn't earn its place, it doesn't ship. We resist the feature factory.</p>
+          </div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-num">IV</div>
+          <div>
+            <h3 class="principle-name">Design is how it works</h3>
+            <p class="principle-desc">Looks matter. Craft matters more. The interface, the latency, the recovery from failure — every detail, or none of them.</p>
+          </div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-num">V</div>
+          <div>
+            <h3 class="principle-name">No addictive patterns</h3>
+            <p class="principle-desc">No infinite scrolls, no manipulated streaks, no engagement metrics dressed up as care. Tools you can put down.</p>
+          </div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-num">VI</div>
+          <div>
+            <h3 class="principle-name">No lock-in</h3>
+            <p class="principle-desc">Your data is yours, in formats you can read. Leave whenever you want. We earn loyalty; we don't trap it.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="products">
+      <div class="eyebrow">The workshop's output</div>
+
+      <div class="product">
+        <div class="product-num">01</div>
+        <h2 class="product-name">Maskin</h2>
+        <div class="product-desc">
+          <span class="meaning">The machine.</span>
+          An agent-native product development platform. The system that runs the workshop — and builds the rest.
+        </div>
+        <div class="product-status live"><span class="dot"></span>In production</div>
+      </div>
+
+      <div class="product">
+        <div class="product-num">02</div>
+        <h2 class="product-name">Skjald</h2>
+        <div class="product-desc">
+          <span class="meaning">The bard.</span>
+          Notes and knowledge capture, in the tradition of the Norse skalds who carried a people's memory in verse.
+        </div>
+        <div class="product-status live"><span class="dot"></span>In production</div>
+      </div>
+
+      <div class="product">
+        <div class="product-num">03</div>
+        <h2 class="product-name">Saga</h2>
+        <div class="product-desc">
+          <span class="meaning">The storyteller.</span>
+          A text editor for long-form writing — where ideas become narratives that hold together.
+        </div>
+        <div class="product-status live"><span class="dot"></span>In production</div>
+      </div>
+
+      <div class="product">
+        <div class="product-num">04</div>
+        <h2 class="product-name">Sindre</h2>
+        <div class="product-desc">
+          <span class="meaning">The smith.</span>
+          A product management agent, named for the legendary dwarven craftsman who forged Mjölnir, Gungnir, and Draupnir.
+        </div>
+        <div class="product-status live"><span class="dot"></span>In production</div>
+      </div>
+
+      <div class="product">
+        <div class="product-num">05</div>
+        <h2 class="product-name">Hugin</h2>
+        <div class="product-desc">
+          <span class="meaning">The raven.</span>
+          A shared inbox for every social channel, named for Odin's raven who flew across the worlds and returned with everything worth knowing.
+        </div>
+        <div class="product-status">In the forge</div>
+      </div>
+
+    </section>
+
+    <section class="builders">
+      <div class="eyebrow">The builders</div>
+      <div class="builders-grid">
+
+        <div class="builder">
+          <h3 class="builder-name">Sebastian Krumhausen</h3>
+          <p class="builder-bio">CPO, founder, investor. His master's thesis at LEGO Future Lab became LEGO Life — launched 2017, grown to 8M+ active users. Product leadership at momondo, KAYAK, TELUS, and Trackunit. Trained 250+ product managers in AI, lean, and agile.</p>
+        </div>
+
+        <div class="builder">
+          <h3 class="builder-name">Magnus Nøddegaard Hansen</h3>
+          <p class="builder-bio">Engineer and builder since 17. Designed and built Maskin's MCP-native architecture from scratch. Thinks in systems, ships in weeks.</p>
+        </div>
+
+      </div>
+      <div class="builders-note">Building together since 2020 · Copenhagen</div>
+    </section>
+
+    <section class="availability">
+      <p>
+        <strong>We're also available.</strong>
+        If your company needs to go AI-native — tooling, workflows, or building something new — we take on a small number of engagements. Reach us at <a href="mailto:sebastian@meshfirm.com">hej@vaerksted.ai</a>
+      </p>
+    </section>
+
+    <footer>
+      <div>
+        <div class="footer-mark">V<span class="ae">æ</span>rksted</div>
+        <div>© MMXXVI · All rights reserved</div>
+      </div>
+      <div class="footer-right">
+        <a href="mailto:sebastian@meshfirm.com">hej@vaerksted.ai</a>
+        <span>vaerksted.ai · vaerksted.org</span>
+      </div>
+    </footer>
+
   </div>
-
-  <div class="hero">
-    <p class="kicker">A workshop of builders</p>
-    <h1>We build AI-native apps. On principle.</h1>
-    <p>
-      Værksted is Danish for <em>workshop</em>. The apps we make share an infrastructure, a naming tradition rooted in Old Norse, and the principles below — written down because we mean them, not because the brand book required a values page.
-    </p>
-  </div>
-
-  <section>
-    <p class="section-title">Principles</p>
-    <ul class="principles-list">
-      <li class="principle">
-        <span class="principle-num">I</span>
-        <div>
-          <h3>Privacy by default</h3>
-          <p>Your work is yours. We don't read it, sell it, or train on it. The data stays where it belongs.</p>
-        </div>
-      </li>
-      <li class="principle">
-        <span class="principle-num">II</span>
-        <div>
-          <h3>You pay us, not them</h3>
-          <p>We make money by selling software, not by selling you. No ads, no trackers, no data brokerage.</p>
-        </div>
-      </li>
-      <li class="principle">
-        <span class="principle-num">III</span>
-        <div>
-          <h3>Simplicity over surface area</h3>
-          <p>One craft, done well. If a feature doesn't earn its place, it doesn't ship. We resist the feature factory.</p>
-        </div>
-      </li>
-      <li class="principle">
-        <span class="principle-num">IV</span>
-        <div>
-          <h3>Design is how it works</h3>
-          <p>Looks matter. Craft matters more. The interface, the latency, the recovery from failure — every detail, or none of them.</p>
-        </div>
-      </li>
-      <li class="principle">
-        <span class="principle-num">V</span>
-        <div>
-          <h3>No addictive patterns</h3>
-          <p>No infinite scrolls, no manipulated streaks, no engagement metrics dressed up as care. Tools you can put down.</p>
-        </div>
-      </li>
-      <li class="principle">
-        <span class="principle-num">VI</span>
-        <div>
-          <h3>No lock-in</h3>
-          <p>Your data is yours, in formats you can read. Leave whenever you want. We earn loyalty; we don't trap it.</p>
-        </div>
-      </li>
-    </ul>
-  </section>
-
-  <section>
-    <p class="section-title">The workshop's output</p>
-    <ul class="products-list">
-      <li class="product">
-        <span class="product-num">01</span>
-        <div>
-          <h2>Maskin</h2>
-          <p>The machine. An agent-native product development platform. The system that runs the workshop — and builds the rest.</p>
-        </div>
-        <span class="product-status live">In production</span>
-      </li>
-      <li class="product">
-        <span class="product-num">02</span>
-        <div>
-          <h2>Skjald</h2>
-          <p>The bard. Notes and knowledge capture, in the tradition of the Norse skalds who carried a people's memory in verse.</p>
-        </div>
-        <span class="product-status live">In production</span>
-      </li>
-      <li class="product">
-        <span class="product-num">03</span>
-        <div>
-          <h2>Saga</h2>
-          <p>The storyteller. A text editor for long-form writing — where ideas become narratives that hold together.</p>
-        </div>
-        <span class="product-status live">In production</span>
-      </li>
-      <li class="product">
-        <span class="product-num">04</span>
-        <div>
-          <h2>Sindre</h2>
-          <p>The smith. A product management agent, named for the legendary dwarven craftsman who forged Mjölnir, Gungnir, and Draupnir.</p>
-        </div>
-        <span class="product-status live">In production</span>
-      </li>
-      <li class="product">
-        <span class="product-num">05</span>
-        <div>
-          <h2>Hugin</h2>
-          <p>The raven. A shared inbox for every social channel, named for Odin's raven who flew across the worlds and returned with everything worth knowing.</p>
-        </div>
-        <span class="product-status">In the forge</span>
-      </li>
-    </ul>
-  </section>
-
-  <section>
-    <p class="section-title">The builders</p>
-    <ul class="builders-list">
-      <li class="builder">
-        <h3>Sebastian Krumhausen</h3>
-        <p>CPO, founder, investor. His master's thesis at LEGO Future Lab became LEGO Life — launched 2017, grown to 8M+ active users. Product leadership at momondo, KAYAK, TELUS, and Trackunit. Trained 250+ product managers in AI, lean, and agile.</p>
-      </li>
-      <li class="builder">
-        <h3>Magnus Nøddegaard Hansen</h3>
-        <p>Engineer and builder since 17. Designed and built Maskin's MCP-native architecture from scratch. Thinks in systems, ships in weeks.</p>
-      </li>
-    </ul>
-    <p class="builders-note">Building together since 2020 · Copenhagen</p>
-  </section>
-
-  <div class="availability">
-    <p>
-      <strong>We're also available.</strong> If your company needs to go AI-native — tooling, workflows, or building something new — we take on a small number of engagements. Reach us at <a href="mailto:sebastian@meshfirm.com">hej@vaerksted.ai</a>
-    </p>
-  </div>
-
-  <footer class="site-footer">
-    <span class="copy">Værksted &nbsp;·&nbsp; © MMXXVI &nbsp;·&nbsp; All rights reserved</span>
-    <nav class="links">
-      <a href="mailto:sebastian@meshfirm.com">hej@vaerksted.ai</a>
-      <a href="https://vaerksted.ai">vaerksted.ai</a>
-      <a href="https://vaerksted.org">vaerksted.org</a>
-    </nav>
-  </footer>
-
 </body>
 </html>
