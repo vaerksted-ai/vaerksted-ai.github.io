@@ -24,7 +24,7 @@
   <link rel="canonical" href="https://vaerksted.ai/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=DM+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg:      #F2EBE0;
@@ -32,7 +32,7 @@
       --muted:   #5a524a;
       --ghost:   #9a908a;
       --rule:    #d0c4b0;
-      --copper:  #8B5E3C;
+      --copper:  #A8431F;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,9 +40,9 @@
     body {
       background: var(--bg);
       color: var(--ink);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.125rem;
-      line-height: 1.75;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.9rem;
+      line-height: 1.65;
     }
     a { color: inherit; }
 
@@ -56,49 +56,49 @@
       justify-content: space-between;
       align-items: baseline;
     }
-    .site-header .name { font-family: 'IM Fell English', serif; font-size: 1.1rem; font-weight: 400; }
-    .site-header .meta { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ghost); }
+    .site-header .name { font-family: 'Instrument Serif', serif; font-size: 1.1rem; font-weight: 400; }
+    .site-header .meta { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ghost); }
 
     .hero { padding: 5rem 2rem 0; max-width: 720px; margin: 0 auto; }
-    .kicker { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ghost); margin-bottom: 2rem; }
-    h1 { font-family: 'IM Fell English', serif; font-size: clamp(2.4rem, 5.5vw, 3.6rem); font-weight: 400; line-height: 1.1; margin-bottom: 1.75rem; }
-    .hero p { font-size: 1.05rem; color: var(--muted); font-weight: 300; max-width: 560px; }
+    .kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ghost); margin-bottom: 2rem; }
+    h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2.4rem, 5.5vw, 3.6rem); font-weight: 400; line-height: 1.1; margin-bottom: 1.75rem; }
+    .hero p { font-size: 0.95rem; color: var(--muted); max-width: 560px; }
     .hero p em { font-style: italic; color: var(--ink); }
 
     section { padding: 4.5rem 2rem 0; max-width: 720px; margin: 0 auto; }
-    .section-title { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ghost); margin-bottom: 2.5rem; }
+    .section-title { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ghost); margin-bottom: 2.5rem; }
 
     .principles-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
     .principle { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0 1rem; padding: 1.5rem 0; border-top: 1px solid var(--rule); }
     .principle:last-child { border-bottom: 1px solid var(--rule); }
-    .principle-num { font-family: 'IM Fell English', serif; font-size: 0.9rem; color: var(--ghost); padding-top: 0.15rem; font-style: italic; }
-    .principle h3 { font-family: 'IM Fell English', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 0.25rem; }
-    .principle p { font-size: 0.95rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+    .principle-num { font-family: 'Instrument Serif', serif; font-size: 0.9rem; color: var(--ghost); padding-top: 0.15rem; font-style: italic; }
+    .principle h3 { font-family: 'Instrument Serif', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 0.25rem; }
+    .principle p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
 
     .products-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
     .product { display: grid; grid-template-columns: 2.5rem 1fr auto; gap: 0 1rem; padding: 1.75rem 0; border-top: 1px solid var(--rule); align-items: start; }
     .product:last-child { border-bottom: 1px solid var(--rule); }
-    .product-num { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; color: var(--ghost); padding-top: 0.4rem; }
-    .product h2 { font-family: 'IM Fell English', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.2rem; }
-    .product p { font-size: 0.95rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
-    .product-status { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost); white-space: nowrap; padding-top: 0.5rem; }
+    .product-num { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; color: var(--ghost); padding-top: 0.4rem; }
+    .product h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.2rem; }
+    .product p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
+    .product-status { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost); white-space: nowrap; padding-top: 0.5rem; }
     .product-status.live { color: var(--copper); }
 
     .builders-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
     .builder { display: grid; grid-template-columns: 1fr; padding: 1.75rem 0; border-top: 1px solid var(--rule); }
     .builder:last-child { border-bottom: 1px solid var(--rule); }
-    .builder h3 { font-family: 'IM Fell English', serif; font-size: 1.25rem; font-weight: 400; margin-bottom: 0.3rem; }
-    .builder p { font-size: 0.95rem; color: var(--muted); font-weight: 300; line-height: 1.7; max-width: 540px; }
-    .builders-note { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost); margin-top: 1.5rem; }
+    .builder h3 { font-family: 'Instrument Serif', serif; font-size: 1.25rem; font-weight: 400; margin-bottom: 0.3rem; }
+    .builder p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; max-width: 540px; }
+    .builders-note { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ghost); margin-top: 1.5rem; }
 
     .availability { padding: 4.5rem 2rem 0; max-width: 720px; margin: 0 auto; }
-    .availability p { font-size: 1rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 520px; }
-    .availability p strong { font-family: 'IM Fell English', serif; font-weight: 400; font-size: 1.1rem; color: var(--ink); }
+    .availability p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; max-width: 520px; }
+    .availability p strong { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 1.1rem; color: var(--ink); }
     .availability a { color: var(--copper); text-decoration: none; border-bottom: 1px solid currentColor; }
 
     .site-footer { padding: 4.5rem 2rem 3.5rem; max-width: 720px; margin: 0 auto; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
-    .site-footer .copy { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ghost); }
-    .site-footer .links { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ghost); display: flex; gap: 1.5rem; }
+    .site-footer .copy { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ghost); }
+    .site-footer .links { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ghost); display: flex; gap: 1.5rem; }
     .site-footer .links a { text-decoration: none; color: inherit; }
     .site-footer .links a:hover { color: var(--ink); }
 
