@@ -7,14 +7,24 @@
   <!-- Primary -->
   <title>Værksted — We build AI-native apps. On principle.</title>
   <meta name="description" content="Værksted is a workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works.">
+  <meta name="keywords" content="AI-native apps, privacy-first software, Værksted, Maskin, Skjald, Saga, Sindre, Hugin, Copenhagen, product development, agentic software">
+  <meta name="author" content="Værksted">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta name="theme-color" content="#F2EBE0">
+  <meta name="format-detection" content="telephone=no">
   <link rel="canonical" href="https://vaerksted.ai/">
 
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="mask-icon" href="/favicon.svg" color="#A8431F">
   <link rel="manifest" href="/manifest.webmanifest">
+
+  <!-- LLM-friendly summary (llmstxt.org) -->
+  <link rel="alternate" type="text/markdown" title="llms.txt" href="/llms.txt">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -23,6 +33,7 @@
   <meta property="og:description" content="A workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works.">
   <meta property="og:url" content="https://vaerksted.ai/">
   <meta property="og:image" content="https://vaerksted.ai/og-image.png">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Værksted — we build AI-native apps. On principle.">
@@ -44,18 +55,71 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Værksted",
-    "alternateName": "Vaerksted",
-    "url": "https://vaerksted.ai",
-    "logo": "https://vaerksted.ai/icon-512.png",
-    "description": "A workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works.",
-    "foundingDate": "2026",
-    "foundingLocation": {
-      "@type": "Place",
-      "name": "København, Denmark"
-    },
-    "sameAs": []
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://vaerksted.ai/#organization",
+        "name": "Værksted",
+        "alternateName": "Vaerksted",
+        "url": "https://vaerksted.ai/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://vaerksted.ai/icon-512.png",
+          "width": 512,
+          "height": 512
+        },
+        "image": "https://vaerksted.ai/og-image.png",
+        "description": "A workshop of builders making AI-native apps. Privacy by default. No data brokerage. Simplicity. Design is how it works.",
+        "email": "hej@vaerksted.ai",
+        "foundingDate": "2026",
+        "foundingLocation": {
+          "@type": "Place",
+          "name": "København, Denmark"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "København",
+          "addressCountry": "DK"
+        },
+        "knowsAbout": [
+          "AI-native software",
+          "Privacy-first design",
+          "Product development",
+          "Agentic systems"
+        ],
+        "sameAs": [
+          "https://github.com/vaerksted-ai",
+          "https://vaerksted.org"
+        ],
+        "founder": [
+          {
+            "@type": "Person",
+            "name": "Sebastian Krumhausen",
+            "jobTitle": "CPO & Founder",
+            "url": "https://skrumhausen.com",
+            "sameAs": ["https://skrumhausen.com"]
+          },
+          {
+            "@type": "Person",
+            "name": "Magnus Nøddegaard Hansen",
+            "jobTitle": "Engineer"
+          }
+        ],
+        "makesOffer": [
+          { "@type": "Offer", "itemOffered": { "@type": "SoftwareApplication", "name": "Maskin", "url": "https://maskin.io", "applicationCategory": "DeveloperApplication" } },
+          { "@type": "Offer", "itemOffered": { "@type": "SoftwareApplication", "name": "Sindre", "url": "https://sindre.ai", "applicationCategory": "BusinessApplication" } }
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://vaerksted.ai/#website",
+        "url": "https://vaerksted.ai/",
+        "name": "Værksted",
+        "description": "We build AI-native apps. On principle.",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://vaerksted.ai/#organization" }
+      }
+    ]
   }
   </script>
 
@@ -248,6 +312,12 @@
       letter-spacing: -0.02em;
       font-weight: 400;
     }
+    .product-name a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .product-name a:hover { color: var(--forge); }
 
     .product-desc { font-size: 14px; line-height: 1.65; color: var(--ink); }
     .product-desc .meaning {
@@ -298,6 +368,12 @@
       font-weight: 400;
       margin-bottom: 12px;
     }
+    .builder-name a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .builder-name a:hover { color: var(--forge); }
 
     .builder-bio {
       font-size: 13.5px;
@@ -513,7 +589,7 @@
 
       <div class="product">
         <div class="product-num">01</div>
-        <h2 class="product-name">Maskin</h2>
+        <h2 class="product-name"><a href="https://maskin.io">Maskin</a></h2>
         <div class="product-desc">
           <span class="meaning">The machine.</span>
           An agent-native product development platform. The system that runs the workshop — and builds the rest.
@@ -543,7 +619,7 @@
 
       <div class="product">
         <div class="product-num">04</div>
-        <h2 class="product-name">Sindre</h2>
+        <h2 class="product-name"><a href="https://sindre.ai">Sindre</a></h2>
         <div class="product-desc">
           <span class="meaning">The smith.</span>
           A product management agent, named for the legendary dwarven craftsman who forged Mjölnir, Gungnir, and Draupnir.
@@ -568,7 +644,7 @@
       <div class="builders-grid">
 
         <div class="builder">
-          <h3 class="builder-name">Sebastian Krumhausen</h3>
+          <h3 class="builder-name"><a href="https://skrumhausen.com">Sebastian Krumhausen</a></h3>
           <p class="builder-bio">CPO, founder, investor. His master's thesis at LEGO Future Lab became LEGO Life — launched 2017, grown to 8M+ active users. Product leadership at momondo, KAYAK, TELUS, and Trackunit. Trained 250+ product managers in AI, lean, and agile.</p>
         </div>
 
@@ -595,6 +671,7 @@
       </div>
       <div class="footer-right">
         <a href="mailto:sebastian@meshfirm.com">hej@vaerksted.ai</a>
+        <a href="https://github.com/vaerksted-ai" rel="me noopener" target="_blank">GitHub</a>
         <span>vaerksted.ai · vaerksted.org</span>
       </div>
     </footer>
