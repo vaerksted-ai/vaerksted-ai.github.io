@@ -1,13 +1,16 @@
 {
+  "id": "/",
   "name": "Værksted",
   "short_name": "Værksted",
-  "description": "A community of builders making AI-native apps. On principle.",
+  "description": "A workshop of builders making AI-native apps. On principle.",
   "start_url": "/",
   "scope": "/",
   "display": "browser",
   "background_color": "#F2EBE0",
   "theme_color": "#F2EBE0",
   "lang": "en",
+  "dir": "ltr",
+  "categories": ["productivity", "business", "utilities"],
   "icons": [
     {
       "src": "/icon-192.png",
@@ -20,6 +23,12 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/favicon.svg",

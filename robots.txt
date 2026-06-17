@@ -1,4 +1,57 @@
+# robots.txt for vaerksted.ai
+# Search engines and AI crawlers are both welcome here.
+# Structured summary for LLMs: https://vaerksted.ai/llms.txt
+
 User-agent: *
+Allow: /
+
+# ── AI / LLM crawlers (explicitly welcomed) ──
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
 Allow: /
 
 Sitemap: https://vaerksted.ai/sitemap.xml

@@ -1,0 +1,33 @@
+# Værksted
+
+> Værksted (Danish for "workshop") is a workshop of builders making AI-native apps. Privacy by default, no data brokerage, simplicity, and design measured by how it works. Based in København (Copenhagen), Denmark; established MMXXVI (2026).
+
+Værksted builds a family of AI-native applications that share an infrastructure and a naming tradition rooted in Old Norse. We make money by selling software, not by selling our users — no ads, no trackers, no data brokerage, no lock-in.
+
+## Principles
+
+- **Privacy by default**: Your work is yours. We don't read it, sell it, or train on it. The data stays where it belongs.
+- **You pay us, not them**: We make money by selling software, not by selling you. No ads, no trackers, no data brokerage.
+- **Simplicity over surface area**: One craft, done well. If a feature doesn't earn its place, it doesn't ship.
+- **Design is how it works**: Looks matter. Craft matters more — the interface, the latency, the recovery from failure.
+- **No addictive patterns**: No infinite scrolls, no manipulated streaks, no engagement metrics dressed up as care. Tools you can put down.
+- **No lock-in**: Your data is yours, in formats you can read. Leave whenever you want.
+
+## Products
+
+- [Maskin](https://maskin.io): The machine. An agent-native product development platform — the system that runs the workshop and builds the rest. In production.
+- Skjald: The bard. Notes and knowledge capture, in the tradition of the Norse skalds who carried a people's memory in verse. In production.
+- Saga: The storyteller. A text editor for long-form writing — where ideas become narratives that hold together. In production.
+- [Sindre](https://sindre.ai): The smith. A product management agent, named for the legendary dwarven craftsman who forged Mjölnir, Gungnir, and Draupnir. In production.
+- Hugin: The raven. A shared inbox for every social channel, named for Odin's raven who flew across the worlds and returned with everything worth knowing. In development ("in the forge").
+
+## The builders
+
+- [Sebastian Krumhausen](https://skrumhausen.com): CPO, founder, investor. His master's thesis at LEGO Future Lab became LEGO Life (launched 2017, 8M+ active users). Product leadership at momondo, KAYAK, TELUS, and Trackunit. Trained 250+ product managers in AI, lean, and agile.
+- Magnus Nøddegaard Hansen: Engineer and builder since 17. Designed and built Maskin's MCP-native architecture from scratch. Thinks in systems, ships in weeks.
+
+## Contact
+
+- Email: hej@vaerksted.ai
+- Website: https://vaerksted.ai
+- Værksted also takes on a small number of engagements helping companies go AI-native — tooling, workflows, or building something new.
