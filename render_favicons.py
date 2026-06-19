@@ -4,8 +4,8 @@ from PIL import Image, ImageDraw, ImageFont
 OUT = "/home/user/vaerksted-ai.github.io"
 PANEL = (14, 16, 24)      # #0E1018
 GOLD = (201, 162, 75)     # #C9A24B — Asgardian ring
-# Geometric grotesk stand-in for Space Grotesk (the web page uses the real face).
-DISPLAY = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+# Metamorphous — the logo face (vendored), so the æ matches the wordmark.
+DISPLAY = f"{OUT}/fonts/Metamorphous-Regular.ttf"
 
 # Bifröst — the rainbow bridge Heimdal guards (one hue per app).
 BIFROST = [
@@ -62,7 +62,7 @@ def render_ae(size: int, corner_radius_ratio: float = 0.18) -> Image.Image:
         )
 
     # æ centered, sized to fit, painted with the Bifröst gradient
-    font_size = int(size * 0.60)
+    font_size = int(size * 0.66)
     font = ImageFont.truetype(DISPLAY, font_size)
     bbox = font.getbbox("æ")
     text_w = bbox[2] - bbox[0]

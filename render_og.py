@@ -125,22 +125,24 @@ for cx, cy, rmax, amax, col in GLOWS:
 img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
 draw = ImageDraw.Draw(img, "RGBA")
 
-# ─── Fonts (DejaVu stand-ins; web page uses Space Grotesk + JetBrains Mono) ──
-DISPLAY = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+# ─── Fonts ──────────────────────────────────────────
+# Wordmark: Metamorphous (the real logo face, vendored). Tagline/labels:
+# DejaVu stand-ins (the page uses Space Grotesk + JetBrains Mono).
+WORDMARK_FONT = f"{OUT}/fonts/Metamorphous-Regular.ttf"
 DISPLAY_REG = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 MONO_REG = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 
 # Size the wordmark so "Værksted" fits the left/right margins (80px each).
 WORDMARK = "Værksted"
 MAX_W = W - 160
-wm_size = 220
+wm_size = 200
 while wm_size > 60:
-    f = ImageFont.truetype(DISPLAY, wm_size)
+    f = ImageFont.truetype(WORDMARK_FONT, wm_size)
     bb = f.getbbox(WORDMARK)
     if (bb[2] - bb[0]) <= MAX_W:
         break
     wm_size -= 2
-wordmark_font = ImageFont.truetype(DISPLAY, wm_size)
+wordmark_font = ImageFont.truetype(WORDMARK_FONT, wm_size)
 tagline_font = ImageFont.truetype(DISPLAY_REG, 44)
 eyebrow_font = ImageFont.truetype(MONO_REG, 16)
 footer_font = ImageFont.truetype(MONO_REG, 14)
@@ -163,28 +165,23 @@ draw_tracked((128, EYEBROW_Y - 11), "A WORKSHOP OF BUILDERS", eyebrow_font, GOLD
 
 # ─── Wordmark: V æ rksted ───────────────────────────
 WORDMARK_Y = 150
-y_top, y_bottom = WORDMARK_Y + wm_size * 0.12, WORDMARK_Y + wm_size * 0.92
-gold_img = gold_vspan(y_top, y_bottom)
-x = 74
+full = wordmark_font.getbbox(WORDMARK)
+gold_img = gold_vspan(WORDMARK_Y + full[1], WORDMARK_Y + full[3])
 
-# "V" — gold
-v_bbox = wordmark_font.getbbox("V")
-v_mask = Image.new("L", (W, H), 0)
-ImageDraw.Draw(v_mask).text((x, WORDMARK_Y), "V", fill=255, font=wordmark_font)
-img.paste(gold_img, (0, 0), v_mask)
-x += (v_bbox[2] - v_bbox[0]) - 6
 
-# "æ" — Bifröst rainbow
+def stamp(text, x, grad):
+    """Paint `text` at x using gradient image `grad`; return the pen advance."""
+    m = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(m).text((x, WORDMARK_Y), text, fill=255, font=wordmark_font)
+    img.paste(grad, (0, 0), m)
+    return x + wordmark_font.getlength(text)
+
+
+x = 78
+x = stamp("V", x, gold_img)                      # gold
 ae_bbox = wordmark_font.getbbox("æ")
-ae_mask = Image.new("L", (W, H), 0)
-ImageDraw.Draw(ae_mask).text((x, WORDMARK_Y), "æ", fill=255, font=wordmark_font)
-img.paste(bifrost_span(x + ae_bbox[0], x + ae_bbox[2]), (0, 0), ae_mask)
-x += (ae_bbox[2] - ae_bbox[0]) - 6
-
-# "rksted" — gold
-rk_mask = Image.new("L", (W, H), 0)
-ImageDraw.Draw(rk_mask).text((x, WORDMARK_Y), "rksted", fill=255, font=wordmark_font)
-img.paste(gold_img, (0, 0), rk_mask)
+x = stamp("æ", x, bifrost_span(x + ae_bbox[0], x + ae_bbox[2]))  # Bifröst
+stamp("rksted", x, gold_img)                     # gold
 
 draw = ImageDraw.Draw(img, "RGBA")
 

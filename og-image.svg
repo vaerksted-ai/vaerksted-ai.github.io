@@ -85,12 +85,12 @@
   </g>
 
   <!-- Wordmark -->
-  <text x="78" y="350"
-        font-family="'Space Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif"
-        font-size="232"
-        font-weight="600"
+  <text x="78" y="338"
+        font-family="'Metamorphous', Georgia, serif"
+        font-size="170"
+        font-weight="400"
         fill="url(#gold)"
-        letter-spacing="-10">V<tspan fill="url(#bifrost)">æ</tspan>rksted</text>
+        letter-spacing="0">V<tspan fill="url(#bifrost)">æ</tspan>rksted</text>
 
   <!-- Tagline -->
   <text x="80" y="452"
