@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Not found — Værksted</title>
   <meta name="description" content="Not in the workshop's inventory.">
-  <meta name="theme-color" content="#0B0D11">
+  <meta name="theme-color" content="#07080D">
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
@@ -15,11 +15,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --void: #0B0D11;
+      --void: #07080D;
       --frost: #EDEFF3;
       --mist: #8B939F;
-      --line: rgba(237, 239, 243, 0.10);
-      --line-strong: rgba(237, 239, 243, 0.20);
+      --line: rgba(232, 200, 121, 0.14);
+      --line-strong: rgba(232, 200, 121, 0.30);
+      --gold: #E8C879;
+      --gold-metal: linear-gradient(180deg,
+        #F7E7B0 0%, #E6C56F 38%, #B8893A 52%, #EBD083 72%, #F7E7B0 100%);
       --c-red:    #F26D6D;
       --c-amber:  #F2A33C;
       --c-green:  #4FD08A;
@@ -33,7 +36,8 @@
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: var(--void);
+      background:
+        radial-gradient(ellipse 120% 90% at 50% 30%, #1A1733 0%, #0C0B1A 40%, var(--void) 75%);
       color: var(--frost);
       font-family: 'JetBrains Mono', ui-monospace, monospace;
       font-size: 14px;
@@ -48,13 +52,13 @@
       content: '';
       position: fixed;
       inset: 0;
-      background-image:
-        linear-gradient(to right, var(--line) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-      background-size: 72px 72px;
-      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 0%, transparent 75%);
-      mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 0%, transparent 75%);
-      opacity: 0.6;
+      background:
+        url('/stars.svg') center / cover no-repeat,
+        linear-gradient(to right, var(--line) 1px, transparent 1px) center / 72px 72px,
+        linear-gradient(to bottom, var(--line) 1px, transparent 1px) center / 72px 72px;
+      -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 45%, #000 0%, transparent 78%);
+      mask-image: radial-gradient(ellipse 75% 75% at 50% 45%, #000 0%, transparent 78%);
+      opacity: 0.65;
       pointer-events: none;
     }
     body::after {
@@ -62,8 +66,9 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(circle at 38% 26%, rgba(91, 141, 239, 0.10) 0%, transparent 46%),
-        radial-gradient(circle at 62% 30%, rgba(176, 124, 246, 0.07) 0%, transparent 46%);
+        radial-gradient(ellipse 50% 40% at 50% 18%, rgba(232, 200, 121, 0.12) 0%, transparent 70%),
+        radial-gradient(circle at 38% 30%, rgba(91, 141, 239, 0.10) 0%, transparent 46%),
+        radial-gradient(circle at 62% 34%, rgba(176, 124, 246, 0.08) 0%, transparent 46%);
       pointer-events: none;
     }
     .wrap { max-width: 640px; text-align: left; position: relative; z-index: 1; }
@@ -71,7 +76,7 @@
       font-size: 11px;
       letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: var(--signal);
+      color: var(--gold);
       margin-bottom: 32px;
       display: flex;
       align-items: center;
@@ -119,7 +124,7 @@
       padding-bottom: 4px;
       transition: all 0.2s ease;
     }
-    a:hover { color: var(--signal); border-color: var(--signal); }
+    a:hover { color: var(--gold); border-color: var(--gold); }
     a::before { content: '← '; }
   </style>
 </head>

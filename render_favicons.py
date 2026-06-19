@@ -2,7 +2,8 @@
 from PIL import Image, ImageDraw, ImageFont
 
 OUT = "/home/user/vaerksted-ai.github.io"
-PANEL = (17, 20, 26)      # #11141A
+PANEL = (14, 16, 24)      # #0E1018
+GOLD = (201, 162, 75)     # #C9A24B — Asgardian ring
 # Geometric grotesk stand-in for Space Grotesk (the web page uses the real face).
 DISPLAY = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
@@ -51,8 +52,17 @@ def render_ae(size: int, corner_radius_ratio: float = 0.18) -> Image.Image:
     radius = int(size * corner_radius_ratio)
     draw.rounded_rectangle((0, 0, size - 1, size - 1), radius=radius, fill=PANEL)
 
+    # Asgardian gold ring (scale stroke with size; skip on tiny favicons)
+    if size >= 32:
+        stroke = max(2, round(size * 0.035))
+        inset = stroke / 2 + 1
+        draw.rounded_rectangle(
+            (inset, inset, size - 1 - inset, size - 1 - inset),
+            radius=int(radius * 0.9), outline=GOLD, width=stroke,
+        )
+
     # æ centered, sized to fit, painted with the Bifröst gradient
-    font_size = int(size * 0.64)
+    font_size = int(size * 0.60)
     font = ImageFont.truetype(DISPLAY, font_size)
     bbox = font.getbbox("æ")
     text_w = bbox[2] - bbox[0]

@@ -1,16 +1,18 @@
 """Render the Open Graph social-preview image for vaerksted.ai.
 
 Output: og-image.png (1200x630, the standard size for Facebook/Twitter/LinkedIn).
+Asgardian theme: cosmos + gold + the Bifröst.
 """
+import random
 from PIL import Image, ImageDraw, ImageFont
 
 # ─── Canvas ─────────────────────────────────────────
 W, H = 1200, 630
 OUT = "/home/user/vaerksted-ai.github.io"
-VOID = (11, 13, 17)        # #0B0D11
+VOID = (7, 8, 13)          # #07080D
 FROST = (237, 239, 243)    # #EDEFF3
 MIST = (139, 147, 159)     # #8B939F
-SIGNAL = (91, 141, 239)    # #5B8DEF — house blue (Maskin)
+GOLD = (232, 200, 121)     # #E8C879
 
 # Bifröst — the rainbow bridge Heimdal guards (one hue per app).
 BIFROST = [
@@ -21,22 +23,33 @@ BIFROST = [
     (0.82, (91, 141, 239)),   # blue
     (1.00, (176, 124, 246)),  # violet
 ]
+# Polished Asgardian gold (vertical sheen).
+GOLD_METAL = [
+    (0.00, (247, 231, 176)),
+    (0.38, (230, 197, 111)),
+    (0.52, (184, 137, 58)),
+    (0.72, (235, 208, 131)),
+    (1.00, (247, 231, 176)),
+]
 
 
-def bifrost_color(t: float):
-    """Sample the Bifröst gradient at t in [0, 1]."""
+def _sample(stops, t):
     t = max(0.0, min(1.0, t))
-    for i in range(len(BIFROST) - 1):
-        t0, c0 = BIFROST[i]
-        t1, c1 = BIFROST[i + 1]
+    for i in range(len(stops) - 1):
+        t0, c0 = stops[i]
+        t1, c1 = stops[i + 1]
         if t0 <= t <= t1:
             f = (t - t0) / (t1 - t0)
             return tuple(round(c0[k] + (c1[k] - c0[k]) * f) for k in range(3))
-    return BIFROST[-1][1]
+    return stops[-1][1]
 
 
-def bifrost_span(x0: float, x1: float) -> Image.Image:
-    """Full-canvas RGB image whose rainbow runs across [x0, x1] horizontally."""
+def bifrost_color(t):
+    return _sample(BIFROST, t)
+
+
+def bifrost_span(x0, x1):
+    """Full-canvas image whose rainbow runs across [x0, x1] horizontally."""
     grad = Image.new("RGB", (W, H))
     px = grad.load()
     for x in range(W):
@@ -46,40 +59,69 @@ def bifrost_span(x0: float, x1: float) -> Image.Image:
     return grad
 
 
+def gold_vspan(y0, y1):
+    """Full-canvas image with a vertical gold sheen across [y0, y1]."""
+    grad = Image.new("RGB", (W, H))
+    px = grad.load()
+    for y in range(H):
+        col = _sample(GOLD_METAL, (y - y0) / max(1.0, (y1 - y0)))
+        for x in range(W):
+            px[x, y] = col
+    return grad
+
+
+# ─── Cosmic backdrop (indigo glow over the void) ────
 img = Image.new("RGB", (W, H), VOID)
 draw = ImageDraw.Draw(img, "RGBA")
+cosmos = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+cd = ImageDraw.Draw(cosmos)
+for r in range(820, 0, -10):
+    a = int(60 * (1 - r / 820))
+    cd.ellipse((600 - r, -120 - r, 600 + r, -120 + r), fill=(26, 23, 51, a))  # #1A1733
+img = Image.alpha_composite(img.convert("RGBA"), cosmos).convert("RGB")
+draw = ImageDraw.Draw(img, "RGBA")
 
-# ─── Blueprint grid (fades out toward the bottom) ───
+# ─── Starfield ──────────────────────────────────────
+random.seed(42)
+for _ in range(150):
+    sx, sy = random.uniform(0, W), random.uniform(0, H)
+    rad = random.uniform(0.5, 1.6)
+    a = int(random.uniform(45, 200))
+    draw.ellipse((sx - rad, sy - rad, sx + rad, sy + rad), fill=(*FROST, a))
+for _ in range(28):  # gold embers
+    sx, sy = random.uniform(0, W), random.uniform(0, H * 0.7)
+    rad = random.uniform(0.8, 1.7)
+    a = int(random.uniform(70, 190))
+    draw.ellipse((sx - rad, sy - rad, sx + rad, sy + rad), fill=(*GOLD, a))
+
+# ─── Faint etched grid (fades toward the bottom) ────
 grid = Image.new("RGBA", (W, H), (0, 0, 0, 0))
 gd = ImageDraw.Draw(grid)
 step = 72
 for x in range(0, W + 1, step):
-    gd.line((x, 0, x, H), fill=(FROST[0], FROST[1], FROST[2], 18), width=1)
+    gd.line((x, 0, x, H), fill=(*GOLD, 12), width=1)
 for y in range(0, H + 1, step):
-    gd.line((0, y, W, y), fill=(FROST[0], FROST[1], FROST[2], 18), width=1)
-# Vertical alpha fade mask: opaque at top, transparent toward bottom
+    gd.line((0, y, W, y), fill=(*GOLD, 12), width=1)
 fade = Image.new("L", (W, H), 0)
 fd = ImageDraw.Draw(fade)
 for y in range(H):
-    a = max(0, int(255 * (1 - y / (H * 0.7))))
-    fd.line((0, y, W, y), fill=a)
+    fd.line((0, y, W, y), fill=max(0, int(255 * (1 - y / (H * 0.7)))))
 grid.putalpha(Image.composite(grid.getchannel("A"), Image.new("L", (W, H), 0), fade))
 img = Image.alpha_composite(img.convert("RGBA"), grid).convert("RGB")
 draw = ImageDraw.Draw(img, "RGBA")
 
-# ─── Bifröst glow (soft rainbow highlights across the top) ──
+# ─── Aurora glow (gold horizon + Bifröst tints) ─────
 overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
 od = ImageDraw.Draw(overlay)
 GLOWS = [
-    (264, 10, 620, 34, (91, 141, 239)),    # blue
-    (744, 24, 520, 24, (176, 124, 246)),   # violet
-    (1104, 40, 470, 20, (242, 163, 60)),   # amber
+    (600, -20, 560, 30, GOLD),             # gold horizon, centre
+    (264, 10, 600, 26, (91, 141, 239)),    # blue
+    (1020, 30, 500, 22, (176, 124, 246)),  # violet
 ]
 for cx, cy, rmax, amax, col in GLOWS:
     for r in range(rmax, 0, -16):
         a = int(amax * (1 - r / rmax))
-        od.ellipse((cx - r, cy - r, cx + r, cy + r),
-                   fill=(col[0], col[1], col[2], a))
+        od.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(col[0], col[1], col[2], a))
 img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
 draw = ImageDraw.Draw(img, "RGBA")
 
@@ -113,39 +155,44 @@ def draw_tracked(xy, text, font, fill, track):
     return x
 
 
-# ─── Eyebrow ────────────────────────────────────────
+# ─── Eyebrow (gold text, Bifröst rule) ──────────────
 EYEBROW_Y = 90
-# Short Bifröst rule
 for i in range(32):
-    od_col = bifrost_color(i / 31)
-    draw.line((80 + i, EYEBROW_Y - 1, 80 + i, EYEBROW_Y + 1), fill=od_col, width=1)
-draw_tracked((128, EYEBROW_Y - 11), "A WORKSHOP OF BUILDERS", eyebrow_font, SIGNAL, 3)
+    draw.line((80 + i, EYEBROW_Y - 1, 80 + i, EYEBROW_Y + 1), fill=bifrost_color(i / 31), width=1)
+draw_tracked((128, EYEBROW_Y - 11), "A WORKSHOP OF BUILDERS", eyebrow_font, GOLD, 3)
 
 # ─── Wordmark: V æ rksted ───────────────────────────
 WORDMARK_Y = 150
+y_top, y_bottom = WORDMARK_Y + wm_size * 0.12, WORDMARK_Y + wm_size * 0.92
+gold_img = gold_vspan(y_top, y_bottom)
 x = 74
 
-draw.text((x, WORDMARK_Y), "V", fill=FROST, font=wordmark_font)
+# "V" — gold
 v_bbox = wordmark_font.getbbox("V")
+v_mask = Image.new("L", (W, H), 0)
+ImageDraw.Draw(v_mask).text((x, WORDMARK_Y), "V", fill=255, font=wordmark_font)
+img.paste(gold_img, (0, 0), v_mask)
 x += (v_bbox[2] - v_bbox[0]) - 6
 
-# æ painted with the Bifröst gradient (mask = glyph, fill = rainbow span)
+# "æ" — Bifröst rainbow
 ae_bbox = wordmark_font.getbbox("æ")
-ae_left = x + ae_bbox[0]
-ae_right = x + ae_bbox[2]
 ae_mask = Image.new("L", (W, H), 0)
 ImageDraw.Draw(ae_mask).text((x, WORDMARK_Y), "æ", fill=255, font=wordmark_font)
-img.paste(bifrost_span(ae_left, ae_right), (0, 0), ae_mask)
-draw = ImageDraw.Draw(img, "RGBA")
+img.paste(bifrost_span(x + ae_bbox[0], x + ae_bbox[2]), (0, 0), ae_mask)
 x += (ae_bbox[2] - ae_bbox[0]) - 6
 
-draw.text((x, WORDMARK_Y), "rksted", fill=FROST, font=wordmark_font)
+# "rksted" — gold
+rk_mask = Image.new("L", (W, H), 0)
+ImageDraw.Draw(rk_mask).text((x, WORDMARK_Y), "rksted", fill=255, font=wordmark_font)
+img.paste(gold_img, (0, 0), rk_mask)
+
+draw = ImageDraw.Draw(img, "RGBA")
 
 # ─── Tagline ────────────────────────────────────────
 draw.text((80, 446), "We build AI-native apps. On principle.", fill=FROST, font=tagline_font)
 
 # ─── Footer rule + meta ─────────────────────────────
-draw.line((80, 540, 1120, 540), fill=(FROST[0], FROST[1], FROST[2], 30), width=1)
+draw.line((80, 540, 1120, 540), fill=(*GOLD, 50), width=1)
 draw_tracked((80, 570), "VAERKSTED.AI  ·  KØBENHAVN  ·  EST. MMXXVI", footer_font, MIST, 2)
 
 # ─── Save ───────────────────────────────────────────
