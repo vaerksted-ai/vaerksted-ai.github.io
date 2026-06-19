@@ -7,7 +7,7 @@ Værksted builds a family of AI-native applications that share an infrastructure
 ## Principles
 
 - **Privacy by default**: Your work is yours. We don't read it, sell it, or train on it. The data stays where it belongs.
-- **You pay us, not them**: We make money by selling software, not by selling you. No ads, no trackers, no data brokerage.
+- **We sell software, not you**: Our money comes from people buying our products, not from selling access to you. No ads, no trackers, no data brokerage.
 - **Simplicity over surface area**: One craft, done well. If a feature doesn't earn its place, it doesn't ship.
 - **Design is how it works**: Looks matter. Craft matters more — the interface, the latency, the recovery from failure.
 - **No addictive patterns**: No infinite scrolls, no manipulated streaks, no engagement metrics dressed up as care. Tools you can put down.
