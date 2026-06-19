@@ -1,49 +1,107 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <!-- Paper background -->
-  <rect width="1200" height="630" fill="#F2EBE0"/>
-
-  <!-- Subtle atmospheric tint -->
   <defs>
-    <radialGradient id="tint1" cx="18%" cy="22%" r="50%">
-      <stop offset="0%" stop-color="#A8431F" stop-opacity="0.05"/>
-      <stop offset="100%" stop-color="#A8431F" stop-opacity="0"/>
+    <!-- Cosmic backdrop -->
+    <radialGradient id="cosmos" cx="50%" cy="-10%" r="90%">
+      <stop offset="0%" stop-color="#1A1733"/>
+      <stop offset="42%" stop-color="#0C0B1A"/>
+      <stop offset="100%" stop-color="#07080D"/>
     </radialGradient>
-    <radialGradient id="tint2" cx="82%" cy="78%" r="55%">
-      <stop offset="0%" stop-color="#1A1614" stop-opacity="0.03"/>
-      <stop offset="100%" stop-color="#1A1614" stop-opacity="0"/>
+    <!-- Aurora glow over Asgard -->
+    <radialGradient id="goldGlow" cx="50%" cy="0%" r="55%">
+      <stop offset="0%" stop-color="#E8C879" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#E8C879" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="glow1" cx="22%" cy="0%" r="50%">
+      <stop offset="0%" stop-color="#5B8DEF" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#5B8DEF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="86%" cy="4%" r="46%">
+      <stop offset="0%" stop-color="#B07CF6" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#B07CF6" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Bifröst gradient -->
+    <linearGradient id="bifrost" x1="0" y1="0" x2="1" y2="0.18">
+      <stop offset="0%" stop-color="#F26D6D"/>
+      <stop offset="22%" stop-color="#F2A33C"/>
+      <stop offset="44%" stop-color="#4FD08A"/>
+      <stop offset="64%" stop-color="#38C5E0"/>
+      <stop offset="82%" stop-color="#5B8DEF"/>
+      <stop offset="100%" stop-color="#B07CF6"/>
+    </linearGradient>
+    <!-- Polished Asgardian gold -->
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7E7B0"/>
+      <stop offset="38%" stop-color="#E6C56F"/>
+      <stop offset="52%" stop-color="#B8893A"/>
+      <stop offset="72%" stop-color="#EBD083"/>
+      <stop offset="100%" stop-color="#F7E7B0"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#E8C879" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="gridMask"><rect width="1200" height="630" fill="url(#gridFade)"/></mask>
   </defs>
-  <rect width="1200" height="630" fill="url(#tint1)"/>
-  <rect width="1200" height="630" fill="url(#tint2)"/>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#cosmos)"/>
+  <rect width="1200" height="630" fill="url(#grid)" mask="url(#gridMask)"/>
+
+  <!-- Starfield -->
+  <g fill="#EDEFF3">
+    <circle cx="120" cy="70" r="1.1" opacity="0.6"/><circle cx="210" cy="140" r="0.8" opacity="0.4"/>
+    <circle cx="340" cy="50" r="1.4" opacity="0.8"/><circle cx="470" cy="110" r="0.7" opacity="0.5"/>
+    <circle cx="560" cy="48" r="1" opacity="0.6"/><circle cx="690" cy="150" r="0.9" opacity="0.5"/>
+    <circle cx="820" cy="60" r="1.5" opacity="0.85"/><circle cx="930" cy="120" r="0.8" opacity="0.45"/>
+    <circle cx="1040" cy="44" r="1.1" opacity="0.6"/><circle cx="1140" cy="130" r="0.9" opacity="0.5"/>
+    <circle cx="70" cy="220" r="0.9" opacity="0.45"/><circle cx="300" cy="210" r="0.7" opacity="0.4"/>
+    <circle cx="640" cy="230" r="1.2" opacity="0.6"/><circle cx="980" cy="220" r="0.8" opacity="0.45"/>
+    <circle cx="1120" cy="250" r="1" opacity="0.5"/><circle cx="160" cy="320" r="0.8" opacity="0.4"/>
+    <circle cx="430" cy="300" r="1.1" opacity="0.55"/><circle cx="760" cy="330" r="0.7" opacity="0.4"/>
+    <circle cx="1070" cy="360" r="0.9" opacity="0.45"/>
+  </g>
+  <g fill="#E8C879">
+    <circle cx="250" cy="90" r="1.3" opacity="0.6"/><circle cx="600" cy="180" r="1.1" opacity="0.5"/>
+    <circle cx="900" cy="95" r="1.4" opacity="0.6"/><circle cx="1090" cy="190" r="1" opacity="0.5"/>
+    <circle cx="400" cy="160" r="1" opacity="0.45"/>
+  </g>
+
+  <rect width="1200" height="630" fill="url(#goldGlow)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
 
   <!-- Top eyebrow -->
   <g transform="translate(80, 80)">
-    <line x1="0" y1="14" x2="32" y2="14" stroke="#A8431F" stroke-width="1.5"/>
+    <line x1="0" y1="14" x2="32" y2="14" stroke="url(#bifrost)" stroke-width="2"/>
     <text x="48" y="20"
           font-family="'JetBrains Mono', 'Courier New', monospace"
           font-size="16"
           font-weight="500"
           letter-spacing="3"
-          fill="#A8431F">A COMMUNITY OF BUILDERS</text>
+          fill="#E8C879">A WORKSHOP OF BUILDERS</text>
   </g>
 
   <!-- Wordmark -->
-  <text x="80" y="350"
-        font-family="'Instrument Serif', Georgia, 'Times New Roman', serif"
-        font-size="240"
-        font-weight="400"
-        fill="#1A1614"
-        letter-spacing="-8">V<tspan font-style="italic" fill="#A8431F">æ</tspan>rksted</text>
+  <text x="78" y="350"
+        font-family="'Space Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="232"
+        font-weight="600"
+        fill="url(#gold)"
+        letter-spacing="-10">V<tspan fill="url(#bifrost)">æ</tspan>rksted</text>
 
   <!-- Tagline -->
-  <text x="80" y="450"
-        font-family="'Instrument Serif', Georgia, 'Times New Roman', serif"
-        font-style="italic"
+  <text x="80" y="452"
+        font-family="'Space Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif"
         font-size="44"
-        fill="#1A1614">We build AI-native apps. On principle.</text>
+        font-weight="400"
+        letter-spacing="-1"
+        fill="#EDEFF3">We build AI-native apps, built on principle.</text>
 
   <!-- Footer rule -->
-  <line x1="80" y1="540" x2="1120" y2="540" stroke="#1A1614" stroke-opacity="0.15" stroke-width="1"/>
+  <line x1="80" y1="540" x2="1120" y2="540" stroke="#E8C879" stroke-opacity="0.20" stroke-width="1"/>
 
   <!-- Footer meta -->
   <g transform="translate(80, 575)">
@@ -51,6 +109,6 @@
           font-family="'JetBrains Mono', 'Courier New', monospace"
           font-size="14"
           letter-spacing="2"
-          fill="#5C5347">VAERKSTED.AI · KØBENHAVN · EST. MMXXVI</text>
+          fill="#8B939F">VAERKSTED.AI · KØBENHAVN · EST. MMXXVI</text>
   </g>
 </svg>

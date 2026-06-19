@@ -1,62 +1,151 @@
 """Render the Open Graph social-preview image for vaerksted.ai.
 
 Output: og-image.png (1200x630, the standard size for Facebook/Twitter/LinkedIn).
+Asgardian theme: cosmos + gold + the Bifröst.
 """
+import random
 from PIL import Image, ImageDraw, ImageFont
 
 # ─── Canvas ─────────────────────────────────────────
 W, H = 1200, 630
-PAPER = (242, 235, 224)
-INK = (26, 22, 20)
-INK_SOFT = (92, 83, 71)
-FORGE = (168, 67, 31)
-RULE = (26, 22, 20, 38)  # ~15% alpha
+OUT = "/home/user/vaerksted-ai.github.io"
+VOID = (7, 8, 13)          # #07080D
+FROST = (237, 239, 243)    # #EDEFF3
+MIST = (139, 147, 159)     # #8B939F
+GOLD = (232, 200, 121)     # #E8C879
 
-img = Image.new("RGB", (W, H), PAPER)
+# Bifröst — the rainbow bridge Heimdal guards (one hue per app).
+BIFROST = [
+    (0.00, (242, 109, 109)),  # red
+    (0.22, (242, 163, 60)),   # amber
+    (0.44, (79, 208, 138)),   # green
+    (0.64, (56, 197, 224)),   # cyan
+    (0.82, (91, 141, 239)),   # blue
+    (1.00, (176, 124, 246)),  # violet
+]
+# Polished Asgardian gold (vertical sheen).
+GOLD_METAL = [
+    (0.00, (247, 231, 176)),
+    (0.38, (230, 197, 111)),
+    (0.52, (184, 137, 58)),
+    (0.72, (235, 208, 131)),
+    (1.00, (247, 231, 176)),
+]
+
+
+def _sample(stops, t):
+    t = max(0.0, min(1.0, t))
+    for i in range(len(stops) - 1):
+        t0, c0 = stops[i]
+        t1, c1 = stops[i + 1]
+        if t0 <= t <= t1:
+            f = (t - t0) / (t1 - t0)
+            return tuple(round(c0[k] + (c1[k] - c0[k]) * f) for k in range(3))
+    return stops[-1][1]
+
+
+def bifrost_color(t):
+    return _sample(BIFROST, t)
+
+
+def bifrost_span(x0, x1):
+    """Full-canvas image whose rainbow runs across [x0, x1] horizontally."""
+    grad = Image.new("RGB", (W, H))
+    px = grad.load()
+    for x in range(W):
+        col = bifrost_color((x - x0) / max(1.0, (x1 - x0)))
+        for y in range(H):
+            px[x, y] = col
+    return grad
+
+
+def gold_vspan(y0, y1):
+    """Full-canvas image with a vertical gold sheen across [y0, y1]."""
+    grad = Image.new("RGB", (W, H))
+    px = grad.load()
+    for y in range(H):
+        col = _sample(GOLD_METAL, (y - y0) / max(1.0, (y1 - y0)))
+        for x in range(W):
+            px[x, y] = col
+    return grad
+
+
+# ─── Cosmic backdrop (indigo glow over the void) ────
+img = Image.new("RGB", (W, H), VOID)
+draw = ImageDraw.Draw(img, "RGBA")
+cosmos = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+cd = ImageDraw.Draw(cosmos)
+for r in range(820, 0, -10):
+    a = int(60 * (1 - r / 820))
+    cd.ellipse((600 - r, -120 - r, 600 + r, -120 + r), fill=(26, 23, 51, a))  # #1A1733
+img = Image.alpha_composite(img.convert("RGBA"), cosmos).convert("RGB")
 draw = ImageDraw.Draw(img, "RGBA")
 
-# ─── Atmospheric tint (two soft radial highlights) ──
+# ─── Starfield ──────────────────────────────────────
+random.seed(42)
+for _ in range(150):
+    sx, sy = random.uniform(0, W), random.uniform(0, H)
+    rad = random.uniform(0.5, 1.6)
+    a = int(random.uniform(45, 200))
+    draw.ellipse((sx - rad, sy - rad, sx + rad, sy + rad), fill=(*FROST, a))
+for _ in range(28):  # gold embers
+    sx, sy = random.uniform(0, W), random.uniform(0, H * 0.7)
+    rad = random.uniform(0.8, 1.7)
+    a = int(random.uniform(70, 190))
+    draw.ellipse((sx - rad, sy - rad, sx + rad, sy + rad), fill=(*GOLD, a))
+
+# ─── Faint etched grid (fades toward the bottom) ────
+grid = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+gd = ImageDraw.Draw(grid)
+step = 72
+for x in range(0, W + 1, step):
+    gd.line((x, 0, x, H), fill=(*GOLD, 12), width=1)
+for y in range(0, H + 1, step):
+    gd.line((0, y, W, y), fill=(*GOLD, 12), width=1)
+fade = Image.new("L", (W, H), 0)
+fd = ImageDraw.Draw(fade)
+for y in range(H):
+    fd.line((0, y, W, y), fill=max(0, int(255 * (1 - y / (H * 0.7)))))
+grid.putalpha(Image.composite(grid.getchannel("A"), Image.new("L", (W, H), 0), fade))
+img = Image.alpha_composite(img.convert("RGBA"), grid).convert("RGB")
+draw = ImageDraw.Draw(img, "RGBA")
+
+# ─── Aurora glow (gold horizon + Bifröst tints) ─────
 overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
 od = ImageDraw.Draw(overlay)
-# Forge-red highlight, top-left
-for r in range(600, 0, -20):
-    a = int(8 * (1 - r / 600))
-    od.ellipse(
-        (216 - r, 138 - r, 216 + r, 138 + r),
-        fill=(FORGE[0], FORGE[1], FORGE[2], a),
-    )
-# Ink shadow, bottom-right
-for r in range(700, 0, -20):
-    a = int(6 * (1 - r / 700))
-    od.ellipse(
-        (984 - r, 491 - r, 984 + r, 491 + r),
-        fill=(INK[0], INK[1], INK[2], a),
-    )
+GLOWS = [
+    (600, -20, 560, 30, GOLD),             # gold horizon, centre
+    (264, 10, 600, 26, (91, 141, 239)),    # blue
+    (1020, 30, 500, 22, (176, 124, 246)),  # violet
+]
+for cx, cy, rmax, amax, col in GLOWS:
+    for r in range(rmax, 0, -16):
+        a = int(amax * (1 - r / rmax))
+        od.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(col[0], col[1], col[2], a))
 img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
 draw = ImageDraw.Draw(img, "RGBA")
 
-# ─── Fonts ──────────────────────────────────────────
-SERIF_REG = "/usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrepagella-regular.otf"
-SERIF_ITA = "/usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrepagella-italic.otf"
+# ─── Fonts (DejaVu stand-ins; web page uses Space Grotesk + JetBrains Mono) ──
+DISPLAY = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+DISPLAY_REG = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 MONO_REG = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 
-wordmark_font = ImageFont.truetype(SERIF_REG, 240)
-ae_font = ImageFont.truetype(SERIF_ITA, 240)
-tagline_font = ImageFont.truetype(SERIF_ITA, 44)
+# Size the wordmark so "Værksted" fits the left/right margins (80px each).
+WORDMARK = "Værksted"
+MAX_W = W - 160
+wm_size = 220
+while wm_size > 60:
+    f = ImageFont.truetype(DISPLAY, wm_size)
+    bb = f.getbbox(WORDMARK)
+    if (bb[2] - bb[0]) <= MAX_W:
+        break
+    wm_size -= 2
+wordmark_font = ImageFont.truetype(DISPLAY, wm_size)
+tagline_font = ImageFont.truetype(DISPLAY_REG, 44)
 eyebrow_font = ImageFont.truetype(MONO_REG, 16)
 footer_font = ImageFont.truetype(MONO_REG, 14)
 
-# ─── Eyebrow ────────────────────────────────────────
-EYEBROW_Y = 90
-draw.line((80, EYEBROW_Y, 112, EYEBROW_Y), fill=FORGE, width=2)
-draw.text(
-    (128, EYEBROW_Y - 11),
-    "A COMMUNITY OF BUILDERS",
-    fill=FORGE,
-    font=eyebrow_font,
-    spacing=4,
-)
-# manual letter-spacing approximation with kerning via tracked rendering
+
 def draw_tracked(xy, text, font, fill, track):
     x, y = xy
     for ch in text:
@@ -65,51 +154,47 @@ def draw_tracked(xy, text, font, fill, track):
         x += (bbox[2] - bbox[0]) + track
     return x
 
-# Redraw eyebrow with letter-spacing for that editorial caps feel
-draw.rectangle((128, EYEBROW_Y - 11, 700, EYEBROW_Y + 11), fill=PAPER)
-draw_tracked(
-    (128, EYEBROW_Y - 11),
-    "A COMMUNITY OF BUILDERS",
-    eyebrow_font,
-    FORGE,
-    3,
-)
+
+# ─── Eyebrow (gold text, Bifröst rule) ──────────────
+EYEBROW_Y = 90
+for i in range(32):
+    draw.line((80 + i, EYEBROW_Y - 1, 80 + i, EYEBROW_Y + 1), fill=bifrost_color(i / 31), width=1)
+draw_tracked((128, EYEBROW_Y - 11), "A WORKSHOP OF BUILDERS", eyebrow_font, GOLD, 3)
 
 # ─── Wordmark: V æ rksted ───────────────────────────
-WORDMARK_Y = 130
-x = 70
+WORDMARK_Y = 150
+y_top, y_bottom = WORDMARK_Y + wm_size * 0.12, WORDMARK_Y + wm_size * 0.92
+gold_img = gold_vspan(y_top, y_bottom)
+x = 74
 
-# "V"
-draw.text((x, WORDMARK_Y), "V", fill=INK, font=wordmark_font)
+# "V" — gold
 v_bbox = wordmark_font.getbbox("V")
-x += (v_bbox[2] - v_bbox[0]) - 4  # subtle tightening only
+v_mask = Image.new("L", (W, H), 0)
+ImageDraw.Draw(v_mask).text((x, WORDMARK_Y), "V", fill=255, font=wordmark_font)
+img.paste(gold_img, (0, 0), v_mask)
+x += (v_bbox[2] - v_bbox[0]) - 6
 
-# "æ" italic, forge red
-draw.text((x, WORDMARK_Y), "æ", fill=FORGE, font=ae_font)
-ae_bbox = ae_font.getbbox("æ")
-x += (ae_bbox[2] - ae_bbox[0])
+# "æ" — Bifröst rainbow
+ae_bbox = wordmark_font.getbbox("æ")
+ae_mask = Image.new("L", (W, H), 0)
+ImageDraw.Draw(ae_mask).text((x, WORDMARK_Y), "æ", fill=255, font=wordmark_font)
+img.paste(bifrost_span(x + ae_bbox[0], x + ae_bbox[2]), (0, 0), ae_mask)
+x += (ae_bbox[2] - ae_bbox[0]) - 6
 
-# "rksted"
-draw.text((x, WORDMARK_Y), "rksted", fill=INK, font=wordmark_font)
+# "rksted" — gold
+rk_mask = Image.new("L", (W, H), 0)
+ImageDraw.Draw(rk_mask).text((x, WORDMARK_Y), "rksted", fill=255, font=wordmark_font)
+img.paste(gold_img, (0, 0), rk_mask)
+
+draw = ImageDraw.Draw(img, "RGBA")
 
 # ─── Tagline ────────────────────────────────────────
-draw.text(
-    (80, 440),
-    "We build AI-native apps. On principle.",
-    fill=INK,
-    font=tagline_font,
-)
+draw.text((80, 446), "We build AI-native apps, built on principle.", fill=FROST, font=tagline_font)
 
 # ─── Footer rule + meta ─────────────────────────────
-draw.line((80, 540, 1120, 540), fill=(26, 22, 20, 38), width=1)
-draw_tracked(
-    (80, 570),
-    "VAERKSTED.AI  ·  KØBENHAVN  ·  EST. MMXXVI",
-    footer_font,
-    INK_SOFT,
-    2,
-)
+draw.line((80, 540, 1120, 540), fill=(*GOLD, 50), width=1)
+draw_tracked((80, 570), "VAERKSTED.AI  ·  KØBENHAVN  ·  EST. MMXXVI", footer_font, MIST, 2)
 
 # ─── Save ───────────────────────────────────────────
-img.save("/home/claude/vaerksted-site/og-image.png", "PNG", optimize=True)
-print(f"OG image saved: 1200x630")
+img.save(f"{OUT}/og-image.png", "PNG", optimize=True)
+print("OG image saved: 1200x630")
