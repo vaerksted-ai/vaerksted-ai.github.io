@@ -10,7 +10,41 @@ OUT = "/home/user/vaerksted-ai.github.io"
 VOID = (11, 13, 17)        # #0B0D11
 FROST = (237, 239, 243)    # #EDEFF3
 MIST = (139, 147, 159)     # #8B939F
-SIGNAL = (108, 140, 255)   # #6C8CFF
+SIGNAL = (91, 141, 239)    # #5B8DEF — house blue (Maskin)
+
+# Bifröst — the rainbow bridge Heimdal guards (one hue per app).
+BIFROST = [
+    (0.00, (242, 109, 109)),  # red
+    (0.22, (242, 163, 60)),   # amber
+    (0.44, (79, 208, 138)),   # green
+    (0.64, (56, 197, 224)),   # cyan
+    (0.82, (91, 141, 239)),   # blue
+    (1.00, (176, 124, 246)),  # violet
+]
+
+
+def bifrost_color(t: float):
+    """Sample the Bifröst gradient at t in [0, 1]."""
+    t = max(0.0, min(1.0, t))
+    for i in range(len(BIFROST) - 1):
+        t0, c0 = BIFROST[i]
+        t1, c1 = BIFROST[i + 1]
+        if t0 <= t <= t1:
+            f = (t - t0) / (t1 - t0)
+            return tuple(round(c0[k] + (c1[k] - c0[k]) * f) for k in range(3))
+    return BIFROST[-1][1]
+
+
+def bifrost_span(x0: float, x1: float) -> Image.Image:
+    """Full-canvas RGB image whose rainbow runs across [x0, x1] horizontally."""
+    grad = Image.new("RGB", (W, H))
+    px = grad.load()
+    for x in range(W):
+        col = bifrost_color((x - x0) / max(1.0, (x1 - x0)))
+        for y in range(H):
+            px[x, y] = col
+    return grad
+
 
 img = Image.new("RGB", (W, H), VOID)
 draw = ImageDraw.Draw(img, "RGBA")
@@ -33,17 +67,19 @@ grid.putalpha(Image.composite(grid.getchannel("A"), Image.new("L", (W, H), 0), f
 img = Image.alpha_composite(img.convert("RGBA"), grid).convert("RGB")
 draw = ImageDraw.Draw(img, "RGBA")
 
-# ─── Signal glow (soft radial highlights) ───────────
+# ─── Bifröst glow (soft rainbow highlights across the top) ──
 overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
 od = ImageDraw.Draw(overlay)
-for r in range(620, 0, -16):
-    a = int(34 * (1 - r / 620))
-    od.ellipse((240 - r, 20 - r, 240 + r, 20 + r),
-               fill=(SIGNAL[0], SIGNAL[1], SIGNAL[2], a))
-for r in range(480, 0, -16):
-    a = int(18 * (1 - r / 480))
-    od.ellipse((1140 - r, 60 - r, 1140 + r, 60 + r),
-               fill=(SIGNAL[0], SIGNAL[1], SIGNAL[2], a))
+GLOWS = [
+    (264, 10, 620, 34, (91, 141, 239)),    # blue
+    (744, 24, 520, 24, (176, 124, 246)),   # violet
+    (1104, 40, 470, 20, (242, 163, 60)),   # amber
+]
+for cx, cy, rmax, amax, col in GLOWS:
+    for r in range(rmax, 0, -16):
+        a = int(amax * (1 - r / rmax))
+        od.ellipse((cx - r, cy - r, cx + r, cy + r),
+                   fill=(col[0], col[1], col[2], a))
 img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
 draw = ImageDraw.Draw(img, "RGBA")
 
@@ -79,7 +115,10 @@ def draw_tracked(xy, text, font, fill, track):
 
 # ─── Eyebrow ────────────────────────────────────────
 EYEBROW_Y = 90
-draw.line((80, EYEBROW_Y, 112, EYEBROW_Y), fill=SIGNAL, width=2)
+# Short Bifröst rule
+for i in range(32):
+    od_col = bifrost_color(i / 31)
+    draw.line((80 + i, EYEBROW_Y - 1, 80 + i, EYEBROW_Y + 1), fill=od_col, width=1)
 draw_tracked((128, EYEBROW_Y - 11), "A WORKSHOP OF BUILDERS", eyebrow_font, SIGNAL, 3)
 
 # ─── Wordmark: V æ rksted ───────────────────────────
@@ -90,8 +129,14 @@ draw.text((x, WORDMARK_Y), "V", fill=FROST, font=wordmark_font)
 v_bbox = wordmark_font.getbbox("V")
 x += (v_bbox[2] - v_bbox[0]) - 6
 
-draw.text((x, WORDMARK_Y), "æ", fill=SIGNAL, font=wordmark_font)
+# æ painted with the Bifröst gradient (mask = glyph, fill = rainbow span)
 ae_bbox = wordmark_font.getbbox("æ")
+ae_left = x + ae_bbox[0]
+ae_right = x + ae_bbox[2]
+ae_mask = Image.new("L", (W, H), 0)
+ImageDraw.Draw(ae_mask).text((x, WORDMARK_Y), "æ", fill=255, font=wordmark_font)
+img.paste(bifrost_span(ae_left, ae_right), (0, 0), ae_mask)
+draw = ImageDraw.Draw(img, "RGBA")
 x += (ae_bbox[2] - ae_bbox[0]) - 6
 
 draw.text((x, WORDMARK_Y), "rksted", fill=FROST, font=wordmark_font)

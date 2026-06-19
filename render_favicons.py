@@ -3,9 +3,43 @@ from PIL import Image, ImageDraw, ImageFont
 
 OUT = "/home/user/vaerksted-ai.github.io"
 PANEL = (17, 20, 26)      # #11141A
-SIGNAL = (108, 140, 255)  # #6C8CFF
 # Geometric grotesk stand-in for Space Grotesk (the web page uses the real face).
 DISPLAY = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+
+# Bifröst — the rainbow bridge Heimdal guards (one hue per app).
+BIFROST = [
+    (0.00, (242, 109, 109)),  # red
+    (0.22, (242, 163, 60)),   # amber
+    (0.44, (79, 208, 138)),   # green
+    (0.64, (56, 197, 224)),   # cyan
+    (0.82, (91, 141, 239)),   # blue
+    (1.00, (176, 124, 246)),  # violet
+]
+
+
+def bifrost_color(t: float):
+    """Sample the Bifröst gradient at t in [0, 1]."""
+    t = max(0.0, min(1.0, t))
+    for i in range(len(BIFROST) - 1):
+        t0, c0 = BIFROST[i]
+        t1, c1 = BIFROST[i + 1]
+        if t0 <= t <= t1:
+            f = (t - t0) / (t1 - t0)
+            return tuple(round(c0[k] + (c1[k] - c0[k]) * f) for k in range(3))
+    return BIFROST[-1][1]
+
+
+def bifrost_gradient(w: int, h: int, x0: float = None, x1: float = None) -> Image.Image:
+    """Rainbow gradient image, w×h, running across [x0, x1] (defaults to full width)."""
+    if x0 is None:
+        x0, x1 = 0, w - 1
+    grad = Image.new("RGB", (w, h))
+    px = grad.load()
+    for x in range(w):
+        col = bifrost_color((x - x0) / max(1.0, (x1 - x0)))
+        for y in range(h):
+            px[x, y] = col
+    return grad
 
 
 def render_ae(size: int, corner_radius_ratio: float = 0.18) -> Image.Image:
@@ -17,16 +51,20 @@ def render_ae(size: int, corner_radius_ratio: float = 0.18) -> Image.Image:
     radius = int(size * corner_radius_ratio)
     draw.rounded_rectangle((0, 0, size - 1, size - 1), radius=radius, fill=PANEL)
 
-    # æ centered, sized to fit, in signal blue
+    # æ centered, sized to fit, painted with the Bifröst gradient
     font_size = int(size * 0.64)
     font = ImageFont.truetype(DISPLAY, font_size)
     bbox = font.getbbox("æ")
     text_w = bbox[2] - bbox[0]
     text_h = bbox[3] - bbox[1]
-    # Center using the bbox offset
     x = (size - text_w) / 2 - bbox[0]
     y = (size - text_h) / 2 - bbox[1] - size * 0.03  # slight optical lift
-    draw.text((x, y), "æ", fill=SIGNAL, font=font)
+
+    mask = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(mask).text((x, y), "æ", fill=255, font=font)
+    # Span the rainbow across the glyph itself so the full red→violet shows.
+    grad = bifrost_gradient(size, size, x + bbox[0], x + bbox[2]).convert("RGBA")
+    img.paste(grad, (0, 0), mask)
 
     return img
 

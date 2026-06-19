@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="mask-icon" href="/favicon.svg" color="#6C8CFF">
+  <link rel="mask-icon" href="/favicon.svg" color="#5B8DEF">
   <link rel="manifest" href="/manifest.webmanifest">
 
   <!-- LLM-friendly summary (llmstxt.org) -->
@@ -131,8 +131,22 @@
       --mist: #8B939F;
       --line: rgba(237, 239, 243, 0.10);
       --line-strong: rgba(237, 239, 243, 0.20);
-      --signal: #6C8CFF;
-      --signal-soft: rgba(108, 140, 255, 0.12);
+
+      /* Bifröst — the rainbow bridge Heimdal guards.
+         One hue per app; blue is the house colour (Maskin). */
+      --c-red:    #F26D6D;
+      --c-amber:  #F2A33C;
+      --c-green:  #4FD08A;
+      --c-cyan:   #38C5E0;
+      --c-blue:   #5B8DEF;
+      --c-violet: #B07CF6;
+
+      --bifrost: linear-gradient(100deg,
+        var(--c-red), var(--c-amber), var(--c-green),
+        var(--c-cyan), var(--c-blue), var(--c-violet));
+
+      --signal: var(--c-blue);
+      --signal-soft: rgba(91, 141, 239, 0.12);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -164,14 +178,16 @@
       z-index: 0;
     }
 
-    /* Signal glow */
+    /* Bifröst glow — faint rainbow wash across the top */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(circle at 20% -5%, rgba(108, 140, 255, 0.10) 0%, transparent 45%),
-        radial-gradient(circle at 95% 8%, rgba(108, 140, 255, 0.05) 0%, transparent 40%);
+        radial-gradient(circle at 12% -8%, rgba(176, 124, 246, 0.08) 0%, transparent 42%),
+        radial-gradient(circle at 38% -6%, rgba(91, 141, 239, 0.09) 0%, transparent 42%),
+        radial-gradient(circle at 64% -6%, rgba(79, 208, 138, 0.06) 0%, transparent 42%),
+        radial-gradient(circle at 90% -8%, rgba(242, 163, 60, 0.06) 0%, transparent 42%);
       pointer-events: none;
       z-index: 0;
     }
@@ -212,9 +228,10 @@
     }
     .eyebrow::before {
       content: '';
-      width: 28px;
-      height: 1px;
-      background: var(--signal);
+      width: 32px;
+      height: 2px;
+      border-radius: 1px;
+      background: var(--bifrost);
     }
 
     /* ─── Hero ──────────────────────────────── */
@@ -230,7 +247,11 @@
       margin-bottom: 48px;
     }
     .wordmark .ae {
-      color: var(--signal);
+      background: var(--bifrost);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
     }
 
     .tagline {
@@ -281,7 +302,7 @@
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 500;
       font-size: 22px;
-      color: var(--signal);
+      color: var(--accent, var(--signal));
       line-height: 1;
       letter-spacing: 0.04em;
     }
@@ -317,11 +338,11 @@
       transition: background 0.4s ease;
     }
     .product:last-child { border-bottom: 1px solid var(--line); }
-    .product:hover { background: var(--signal-soft); }
+    .product:hover { background: color-mix(in srgb, var(--accent, var(--signal)) 8%, transparent); }
 
     .product-num {
       font-size: 11px;
-      color: var(--mist);
+      color: var(--accent, var(--mist));
       letter-spacing: 0.15em;
     }
 
@@ -337,12 +358,12 @@
       text-decoration: none;
       transition: color 0.2s ease;
     }
-    .product-name a:hover { color: var(--signal); }
+    .product-name a:hover { color: var(--accent, var(--signal)); }
 
     .product-desc { font-size: 14px; line-height: 1.65; color: var(--frost); }
     .product-desc .meaning {
       font-family: 'Space Grotesk', sans-serif;
-      color: var(--signal);
+      color: var(--accent, var(--signal));
       font-size: 16px;
       font-weight: 500;
       letter-spacing: -0.01em;
@@ -357,16 +378,16 @@
       text-align: right;
       color: var(--mist);
     }
-    .product-status.live { color: var(--signal); }
+    .product-status.live { color: var(--accent, var(--signal)); }
     .product-status .dot {
       display: inline-block;
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--signal);
+      background: var(--accent, var(--signal));
       margin-right: 6px;
       vertical-align: middle;
-      box-shadow: 0 0 8px var(--signal);
+      box-shadow: 0 0 8px var(--accent, var(--signal));
     }
 
     /* ─── Builders ──────────────────────────── */
@@ -474,7 +495,13 @@
       line-height: 1;
       margin-bottom: 14px;
     }
-    .footer-mark .ae { color: var(--signal); }
+    .footer-mark .ae {
+      background: var(--bifrost);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
 
     .footer-right {
       display: flex;
@@ -550,7 +577,7 @@
       <h1 class="wordmark">V<span class="ae">æ</span>rksted</h1>
       <p class="tagline">We build AI-native apps. On principle.</p>
       <p class="blurb">
-        Værksted is Danish for <em>workshop</em>. The apps we make share an infrastructure, a naming tradition rooted in Old Norse, and the principles below — written down because we mean them, not because the brand book required a values page.
+        Værksted is Danish for <em>workshop</em>. The apps we make share an infrastructure, a naming tradition rooted in Old Norse, and a spectrum borrowed from the <em>Bifröst</em> — the rainbow bridge Heimdal guards, one hue per app. And the principles below — written down because we mean them, not because the brand book required a values page.
       </p>
     </section>
 
@@ -558,7 +585,7 @@
       <div class="eyebrow">Principles</div>
       <div class="principles-grid">
 
-        <div class="principle">
+        <div class="principle" style="--accent: var(--c-red)">
           <div class="principle-num">01</div>
           <div>
             <h3 class="principle-name">Privacy by default</h3>
@@ -566,7 +593,7 @@
           </div>
         </div>
 
-        <div class="principle">
+        <div class="principle" style="--accent: var(--c-amber)">
           <div class="principle-num">02</div>
           <div>
             <h3 class="principle-name">You pay us, not them</h3>
@@ -574,7 +601,7 @@
           </div>
         </div>
 
-        <div class="principle">
+        <div class="principle" style="--accent: var(--c-green)">
           <div class="principle-num">03</div>
           <div>
             <h3 class="principle-name">Simplicity over surface area</h3>
@@ -582,7 +609,7 @@
           </div>
         </div>
 
-        <div class="principle">
+        <div class="principle" style="--accent: var(--c-cyan)">
           <div class="principle-num">04</div>
           <div>
             <h3 class="principle-name">Design is how it works</h3>
@@ -590,7 +617,7 @@
           </div>
         </div>
 
-        <div class="principle">
+        <div class="principle" style="--accent: var(--c-blue)">
           <div class="principle-num">05</div>
           <div>
             <h3 class="principle-name">No addictive patterns</h3>
@@ -598,7 +625,7 @@
           </div>
         </div>
 
-        <div class="principle">
+        <div class="principle" style="--accent: var(--c-violet)">
           <div class="principle-num">06</div>
           <div>
             <h3 class="principle-name">No lock-in</h3>
@@ -612,7 +639,7 @@
     <section class="products">
       <div class="eyebrow">The workshop's output</div>
 
-      <div class="product">
+      <div class="product" style="--accent: var(--c-blue)">
         <div class="product-num">01</div>
         <h2 class="product-name"><a href="https://maskin.io">Maskin</a></h2>
         <div class="product-desc">
@@ -622,7 +649,7 @@
         <div class="product-status live"><span class="dot"></span>In production</div>
       </div>
 
-      <div class="product">
+      <div class="product" style="--accent: var(--c-violet)">
         <div class="product-num">02</div>
         <h2 class="product-name">Skjald</h2>
         <div class="product-desc">
@@ -632,7 +659,7 @@
         <div class="product-status live"><span class="dot"></span>In production</div>
       </div>
 
-      <div class="product">
+      <div class="product" style="--accent: var(--c-green)">
         <div class="product-num">03</div>
         <h2 class="product-name">Saga</h2>
         <div class="product-desc">
@@ -642,7 +669,7 @@
         <div class="product-status live"><span class="dot"></span>In production</div>
       </div>
 
-      <div class="product">
+      <div class="product" style="--accent: var(--c-amber)">
         <div class="product-num">04</div>
         <h2 class="product-name"><a href="https://sindre.ai">Sindre</a></h2>
         <div class="product-desc">
@@ -652,7 +679,7 @@
         <div class="product-status live"><span class="dot"></span>In production</div>
       </div>
 
-      <div class="product">
+      <div class="product" style="--accent: var(--c-cyan)">
         <div class="product-num">05</div>
         <h2 class="product-name">Hugin</h2>
         <div class="product-desc">

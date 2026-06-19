@@ -10,7 +10,7 @@ Drop the folder on any static host and you're live.
 |---|---|
 | `index.html` | Landing page. Full content. |
 | `404.html` | Error page (same aesthetic). |
-| `favicon.svg` | Modern browser favicon (the Æ in signal blue). |
+| `favicon.svg` | Modern browser favicon (the Æ in the Bifröst rainbow gradient). |
 | `favicon.ico` | Legacy fallback (16, 32, 48, 64 px embedded). |
 | `apple-touch-icon.png` | iOS home-screen icon (180×180). |
 | `icon-192.png` / `icon-512.png` | PWA / Android home-screen. |
@@ -72,7 +72,7 @@ To regenerate the OG image after editing the wordmark or tagline:
 - Edit `og-image.svg` for source-of-truth changes, or
 - Edit and re-run the Python script (see `render_og.py` if included).
 
-The Æ in the wordmark is a styled `<span class="ae">æ</span>` — change the CSS variable `--signal` to recolor it everywhere on the site at once.
+The Æ in the wordmark is a styled `<span class="ae">æ</span>` painted with the `--bifrost` gradient. Each app carries its own hue from the Bifröst (the rainbow bridge Heimdal guards): the per-app colours live in the `--c-*` CSS variables, applied per card via an inline `--accent`. Maskin is blue, the house colour (`--signal`).
 
 ## Performance
 
