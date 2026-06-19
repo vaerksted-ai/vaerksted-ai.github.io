@@ -2,7 +2,7 @@
   "id": "/",
   "name": "Værksted",
   "short_name": "Værksted",
-  "description": "A workshop of builders making AI-native apps. On principle.",
+  "description": "A workshop of builders making AI-native apps, built on principle.",
   "start_url": "/",
   "scope": "/",
   "display": "browser",

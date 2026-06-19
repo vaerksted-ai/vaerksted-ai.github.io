@@ -189,7 +189,7 @@ img.paste(gold_img, (0, 0), rk_mask)
 draw = ImageDraw.Draw(img, "RGBA")
 
 # ─── Tagline ────────────────────────────────────────
-draw.text((80, 446), "We build AI-native apps. On principle.", fill=FROST, font=tagline_font)
+draw.text((80, 446), "We build AI-native apps, built on principle.", fill=FROST, font=tagline_font)
 
 # ─── Footer rule + meta ─────────────────────────────
 draw.line((80, 540, 1120, 540), fill=(*GOLD, 50), width=1)
