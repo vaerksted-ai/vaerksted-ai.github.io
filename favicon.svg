@@ -1,9 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#F2EBE0"/>
-  <text x="32" y="46" text-anchor="middle"
-        font-family="Cambria, 'Times New Roman', Georgia, serif"
-        font-style="italic"
-        font-size="48"
-        font-weight="400"
-        fill="#A8431F">æ</text>
+  <rect width="64" height="64" rx="10" fill="#11141A"/>
+  <text x="32" y="45" text-anchor="middle"
+        font-family="'Space Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="44"
+        font-weight="600"
+        fill="#6C8CFF">æ</text>
 </svg>

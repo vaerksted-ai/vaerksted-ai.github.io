@@ -10,7 +10,7 @@
   <meta name="keywords" content="AI-native apps, privacy-first software, Værksted, Maskin, Skjald, Saga, Sindre, Hugin, Copenhagen, product development, agentic software">
   <meta name="author" content="Værksted">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="theme-color" content="#F2EBE0">
+  <meta name="theme-color" content="#0B0D11">
   <meta name="format-detection" content="telephone=no">
   <link rel="canonical" href="https://vaerksted.ai/">
 
@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="mask-icon" href="/favicon.svg" color="#A8431F">
+  <link rel="mask-icon" href="/favicon.svg" color="#6C8CFF">
   <link rel="manifest" href="/manifest.webmanifest">
 
   <!-- LLM-friendly summary (llmstxt.org) -->
@@ -49,7 +49,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -125,20 +125,22 @@
 
   <style>
     :root {
-      --paper: #F2EBE0;
-      --paper-dim: #E8DFD0;
-      --ink: #1A1614;
-      --ink-soft: #5C5347;
-      --forge: #A8431F;
-      --rule: rgba(26, 22, 20, 0.15);
+      --void: #0B0D11;
+      --panel: #11141A;
+      --frost: #EDEFF3;
+      --mist: #8B939F;
+      --line: rgba(237, 239, 243, 0.10);
+      --line-strong: rgba(237, 239, 243, 0.20);
+      --signal: #6C8CFF;
+      --signal-soft: rgba(108, 140, 255, 0.12);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--paper);
-      color: var(--ink);
+      background: var(--void);
+      color: var(--frost);
       font-family: 'JetBrains Mono', ui-monospace, monospace;
       font-size: 14px;
       line-height: 1.6;
@@ -146,13 +148,30 @@
       overflow-x: hidden;
     }
 
+    /* Blueprint grid */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background-image:
-        radial-gradient(circle at 18% 22%, rgba(168, 67, 31, 0.04) 0%, transparent 50%),
-        radial-gradient(circle at 82% 78%, rgba(26, 22, 20, 0.025) 0%, transparent 55%);
+        linear-gradient(to right, var(--line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+      background-size: 72px 72px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 0%, transparent 75%);
+      mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 0%, transparent 75%);
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Signal glow */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% -5%, rgba(108, 140, 255, 0.10) 0%, transparent 45%),
+        radial-gradient(circle at 95% 8%, rgba(108, 140, 255, 0.05) 0%, transparent 40%);
       pointer-events: none;
       z-index: 0;
     }
@@ -171,21 +190,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid var(--line);
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--ink-soft);
+      color: var(--mist);
     }
-    header .mark { color: var(--ink); font-weight: 500; }
+    header .mark { color: var(--frost); font-weight: 500; letter-spacing: 0.08em; }
     header .meta { display: flex; gap: 32px; }
 
     /* ─── Eyebrow shared ────────────────────── */
     .eyebrow {
       font-size: 11px;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: var(--forge);
+      color: var(--signal);
       margin-bottom: 56px;
       display: flex;
       align-items: center;
@@ -195,7 +214,7 @@
       content: '';
       width: 28px;
       height: 1px;
-      background: var(--forge);
+      background: var(--signal);
     }
 
     /* ─── Hero ──────────────────────────────── */
@@ -203,25 +222,25 @@
     .hero .eyebrow { margin-bottom: 36px; }
 
     .wordmark {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(80px, 14vw, 210px);
-      line-height: 0.88;
-      letter-spacing: -0.04em;
-      font-weight: 400;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(72px, 13vw, 196px);
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      font-weight: 600;
       margin-bottom: 48px;
     }
     .wordmark .ae {
-      color: var(--forge);
-      font-style: italic;
+      color: var(--signal);
     }
 
     .tagline {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-size: clamp(26px, 3.2vw, 40px);
-      line-height: 1.3;
-      color: var(--ink);
-      max-width: 760px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(26px, 3.4vw, 44px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      color: var(--frost);
+      max-width: 800px;
       margin-bottom: 56px;
     }
 
@@ -229,19 +248,19 @@
       max-width: 600px;
       font-size: 14px;
       line-height: 1.75;
-      color: var(--ink-soft);
+      color: var(--mist);
     }
     .blurb em {
-      color: var(--ink);
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-size: 16px;
+      color: var(--frost);
+      font-style: normal;
+      border-bottom: 1px solid var(--signal);
+      padding-bottom: 1px;
     }
 
     /* ─── Principles ────────────────────────── */
     .principles {
       padding: 88px 0;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid var(--line);
     }
 
     .principles-grid {
@@ -259,32 +278,33 @@
     }
 
     .principle-num {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-size: 28px;
-      color: var(--forge);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 22px;
+      color: var(--signal);
       line-height: 1;
+      letter-spacing: 0.04em;
     }
 
     .principle-name {
-      font-family: 'Instrument Serif', serif;
-      font-size: 26px;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      font-weight: 400;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      font-weight: 500;
       margin-bottom: 12px;
     }
 
     .principle-desc {
       font-size: 13.5px;
       line-height: 1.65;
-      color: var(--ink-soft);
+      color: var(--mist);
     }
 
     /* ─── Products ──────────────────────────── */
     .products {
       padding: 88px 0 120px;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid var(--line);
     }
 
     .product {
@@ -292,39 +312,40 @@
       grid-template-columns: 80px 1.1fr 2fr 140px;
       gap: 32px;
       padding: 56px 0;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid var(--line);
       align-items: baseline;
       transition: background 0.4s ease;
     }
-    .product:last-child { border-bottom: 1px solid var(--rule); }
-    .product:hover { background: rgba(168, 67, 31, 0.025); }
+    .product:last-child { border-bottom: 1px solid var(--line); }
+    .product:hover { background: var(--signal-soft); }
 
     .product-num {
       font-size: 11px;
-      color: var(--ink-soft);
+      color: var(--mist);
       letter-spacing: 0.15em;
     }
 
     .product-name {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(44px, 5vw, 68px);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(40px, 4.6vw, 62px);
       line-height: 1;
-      letter-spacing: -0.02em;
-      font-weight: 400;
+      letter-spacing: -0.035em;
+      font-weight: 600;
     }
     .product-name a {
       color: inherit;
       text-decoration: none;
       transition: color 0.2s ease;
     }
-    .product-name a:hover { color: var(--forge); }
+    .product-name a:hover { color: var(--signal); }
 
-    .product-desc { font-size: 14px; line-height: 1.65; color: var(--ink); }
+    .product-desc { font-size: 14px; line-height: 1.65; color: var(--frost); }
     .product-desc .meaning {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      color: var(--forge);
-      font-size: 17px;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--signal);
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
       display: block;
       margin-bottom: 10px;
     }
@@ -334,23 +355,24 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       text-align: right;
-      color: var(--ink-soft);
+      color: var(--mist);
     }
-    .product-status.live { color: var(--forge); }
+    .product-status.live { color: var(--signal); }
     .product-status .dot {
       display: inline-block;
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--forge);
+      background: var(--signal);
       margin-right: 6px;
       vertical-align: middle;
+      box-shadow: 0 0 8px var(--signal);
     }
 
     /* ─── Builders ──────────────────────────── */
     .builders {
       padding: 88px 0;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid var(--line);
     }
 
     .builders-grid {
@@ -361,24 +383,26 @@
     }
 
     .builder-name {
-      font-family: 'Instrument Serif', serif;
-      font-size: 26px;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      font-weight: 400;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      font-weight: 500;
       margin-bottom: 12px;
     }
     .builder-name a {
       color: inherit;
       text-decoration: none;
-      transition: color 0.2s ease;
+      border-bottom: 1px solid var(--line-strong);
+      padding-bottom: 1px;
+      transition: all 0.2s ease;
     }
-    .builder-name a:hover { color: var(--forge); }
+    .builder-name a:hover { color: var(--signal); border-color: var(--signal); }
 
     .builder-bio {
       font-size: 13.5px;
       line-height: 1.65;
-      color: var(--ink-soft);
+      color: var(--mist);
     }
 
     .builders-note {
@@ -386,70 +410,71 @@
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--ink-soft);
+      color: var(--mist);
     }
 
     /* ─── Availability ──────────────────────── */
     .availability {
       padding: 88px 0;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid var(--line);
     }
 
     .availability p {
       max-width: 640px;
       font-size: 14px;
       line-height: 1.75;
-      color: var(--ink-soft);
+      color: var(--mist);
     }
     .availability strong {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-weight: 400;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
       font-size: 24px;
-      color: var(--ink);
+      letter-spacing: -0.02em;
+      color: var(--frost);
       display: block;
       margin-bottom: 18px;
     }
     .availability a {
-      color: var(--forge);
+      color: var(--signal);
       text-decoration: none;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid var(--line-strong);
       padding-bottom: 1px;
       transition: all 0.2s ease;
     }
-    .availability a:hover { border-color: var(--forge); }
+    .availability a:hover { border-color: var(--signal); }
 
     /* ─── Footer ────────────────────────────── */
     footer {
       padding: 64px 0 48px;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid var(--line);
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--ink-soft);
+      color: var(--mist);
     }
     footer a {
-      color: var(--ink);
+      color: var(--frost);
       text-decoration: none;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid var(--line-strong);
       padding-bottom: 2px;
       transition: all 0.2s ease;
     }
-    footer a:hover { color: var(--forge); border-color: var(--forge); }
+    footer a:hover { color: var(--signal); border-color: var(--signal); }
 
     .footer-mark {
-      font-family: 'Instrument Serif', serif;
-      font-size: 36px;
-      color: var(--ink);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 34px;
+      font-weight: 600;
+      color: var(--frost);
       text-transform: none;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.04em;
       line-height: 1;
       margin-bottom: 14px;
     }
-    .footer-mark .ae { color: var(--forge); font-style: italic; }
+    .footer-mark .ae { color: var(--signal); }
 
     .footer-right {
       display: flex;
@@ -465,7 +490,7 @@
       .principles { padding: 56px 0; }
       .principles-grid { grid-template-columns: 1fr; gap: 40px; }
       .principle { grid-template-columns: 40px 1fr; gap: 16px; }
-      .principle-name { font-size: 22px; }
+      .principle-name { font-size: 21px; }
       .products { padding: 48px 0 64px; }
       .product {
         grid-template-columns: 1fr;
@@ -475,7 +500,7 @@
       .product-status { text-align: left; margin-top: 8px; }
       .builders { padding: 56px 0; }
       .builders-grid { grid-template-columns: 1fr; gap: 40px; }
-      .builder-name { font-size: 22px; }
+      .builder-name { font-size: 21px; }
       .availability { padding: 56px 0; }
       header .meta { gap: 18px; }
       header .meta span:nth-child(3) { display: none; }
@@ -534,7 +559,7 @@
       <div class="principles-grid">
 
         <div class="principle">
-          <div class="principle-num">I</div>
+          <div class="principle-num">01</div>
           <div>
             <h3 class="principle-name">Privacy by default</h3>
             <p class="principle-desc">Your work is yours. We don't read it, sell it, or train on it. The data stays where it belongs.</p>
@@ -542,7 +567,7 @@
         </div>
 
         <div class="principle">
-          <div class="principle-num">II</div>
+          <div class="principle-num">02</div>
           <div>
             <h3 class="principle-name">You pay us, not them</h3>
             <p class="principle-desc">We make money by selling software, not by selling you. No ads, no trackers, no data brokerage.</p>
@@ -550,7 +575,7 @@
         </div>
 
         <div class="principle">
-          <div class="principle-num">III</div>
+          <div class="principle-num">03</div>
           <div>
             <h3 class="principle-name">Simplicity over surface area</h3>
             <p class="principle-desc">One craft, done well. If a feature doesn't earn its place, it doesn't ship. We resist the feature factory.</p>
@@ -558,7 +583,7 @@
         </div>
 
         <div class="principle">
-          <div class="principle-num">IV</div>
+          <div class="principle-num">04</div>
           <div>
             <h3 class="principle-name">Design is how it works</h3>
             <p class="principle-desc">Looks matter. Craft matters more. The interface, the latency, the recovery from failure — every detail, or none of them.</p>
@@ -566,7 +591,7 @@
         </div>
 
         <div class="principle">
-          <div class="principle-num">V</div>
+          <div class="principle-num">05</div>
           <div>
             <h3 class="principle-name">No addictive patterns</h3>
             <p class="principle-desc">No infinite scrolls, no manipulated streaks, no engagement metrics dressed up as care. Tools you can put down.</p>
@@ -574,7 +599,7 @@
         </div>
 
         <div class="principle">
-          <div class="principle-num">VI</div>
+          <div class="principle-num">06</div>
           <div>
             <h3 class="principle-name">No lock-in</h3>
             <p class="principle-desc">Your data is yours, in formats you can read. Leave whenever you want. We earn loyalty; we don't trap it.</p>

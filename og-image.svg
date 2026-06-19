@@ -1,49 +1,62 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <!-- Paper background -->
-  <rect width="1200" height="630" fill="#F2EBE0"/>
-
-  <!-- Subtle atmospheric tint -->
   <defs>
-    <radialGradient id="tint1" cx="18%" cy="22%" r="50%">
-      <stop offset="0%" stop-color="#A8431F" stop-opacity="0.05"/>
-      <stop offset="100%" stop-color="#A8431F" stop-opacity="0"/>
+    <!-- Signal glow, top-left -->
+    <radialGradient id="glow1" cx="20%" cy="0%" r="55%">
+      <stop offset="0%" stop-color="#6C8CFF" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#6C8CFF" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="tint2" cx="82%" cy="78%" r="55%">
-      <stop offset="0%" stop-color="#1A1614" stop-opacity="0.03"/>
-      <stop offset="100%" stop-color="#1A1614" stop-opacity="0"/>
+    <radialGradient id="glow2" cx="95%" cy="10%" r="45%">
+      <stop offset="0%" stop-color="#6C8CFF" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#6C8CFF" stop-opacity="0"/>
     </radialGradient>
+    <!-- Blueprint grid -->
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#EDEFF3" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="gridMask">
+      <rect width="1200" height="630" fill="url(#gridFade)"/>
+    </mask>
   </defs>
-  <rect width="1200" height="630" fill="url(#tint1)"/>
-  <rect width="1200" height="630" fill="url(#tint2)"/>
+
+  <!-- Void background -->
+  <rect width="1200" height="630" fill="#0B0D11"/>
+  <rect width="1200" height="630" fill="url(#grid)" mask="url(#gridMask)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
 
   <!-- Top eyebrow -->
   <g transform="translate(80, 80)">
-    <line x1="0" y1="14" x2="32" y2="14" stroke="#A8431F" stroke-width="1.5"/>
+    <line x1="0" y1="14" x2="32" y2="14" stroke="#6C8CFF" stroke-width="1.5"/>
     <text x="48" y="20"
           font-family="'JetBrains Mono', 'Courier New', monospace"
           font-size="16"
           font-weight="500"
           letter-spacing="3"
-          fill="#A8431F">A COMMUNITY OF BUILDERS</text>
+          fill="#6C8CFF">A WORKSHOP OF BUILDERS</text>
   </g>
 
   <!-- Wordmark -->
-  <text x="80" y="350"
-        font-family="'Instrument Serif', Georgia, 'Times New Roman', serif"
-        font-size="240"
-        font-weight="400"
-        fill="#1A1614"
-        letter-spacing="-8">V<tspan font-style="italic" fill="#A8431F">æ</tspan>rksted</text>
+  <text x="78" y="350"
+        font-family="'Space Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="232"
+        font-weight="600"
+        fill="#EDEFF3"
+        letter-spacing="-10">V<tspan fill="#6C8CFF">æ</tspan>rksted</text>
 
   <!-- Tagline -->
-  <text x="80" y="450"
-        font-family="'Instrument Serif', Georgia, 'Times New Roman', serif"
-        font-style="italic"
+  <text x="80" y="452"
+        font-family="'Space Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif"
         font-size="44"
-        fill="#1A1614">We build AI-native apps. On principle.</text>
+        font-weight="400"
+        letter-spacing="-1"
+        fill="#EDEFF3">We build AI-native apps. On principle.</text>
 
   <!-- Footer rule -->
-  <line x1="80" y1="540" x2="1120" y2="540" stroke="#1A1614" stroke-opacity="0.15" stroke-width="1"/>
+  <line x1="80" y1="540" x2="1120" y2="540" stroke="#EDEFF3" stroke-opacity="0.12" stroke-width="1"/>
 
   <!-- Footer meta -->
   <g transform="translate(80, 575)">
@@ -51,6 +64,6 @@
           font-family="'JetBrains Mono', 'Courier New', monospace"
           font-size="14"
           letter-spacing="2"
-          fill="#5C5347">VAERKSTED.AI · KØBENHAVN · EST. MMXXVI</text>
+          fill="#8B939F">VAERKSTED.AI · KØBENHAVN · EST. MMXXVI</text>
   </g>
 </svg>

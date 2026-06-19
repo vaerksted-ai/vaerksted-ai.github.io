@@ -5,26 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Not found — Værksted</title>
   <meta name="description" content="Not in the workshop's inventory.">
-  <meta name="theme-color" content="#F2EBE0">
+  <meta name="theme-color" content="#0B0D11">
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --paper: #F2EBE0;
-      --ink: #1A1614;
-      --ink-soft: #5C5347;
-      --forge: #A8431F;
-      --rule: rgba(26, 22, 20, 0.15);
+      --void: #0B0D11;
+      --frost: #EDEFF3;
+      --mist: #8B939F;
+      --line: rgba(237, 239, 243, 0.10);
+      --line-strong: rgba(237, 239, 243, 0.20);
+      --signal: #6C8CFF;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: var(--paper);
-      color: var(--ink);
+      background: var(--void);
+      color: var(--frost);
       font-family: 'JetBrains Mono', ui-monospace, monospace;
       font-size: 14px;
       line-height: 1.6;
@@ -39,16 +40,27 @@
       position: fixed;
       inset: 0;
       background-image:
-        radial-gradient(circle at 18% 22%, rgba(168, 67, 31, 0.04) 0%, transparent 50%),
-        radial-gradient(circle at 82% 78%, rgba(26, 22, 20, 0.025) 0%, transparent 55%);
+        linear-gradient(to right, var(--line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+      background-size: 72px 72px;
+      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 0%, transparent 75%);
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 0%, transparent 75%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(108, 140, 255, 0.10) 0%, transparent 50%);
       pointer-events: none;
     }
     .wrap { max-width: 640px; text-align: left; position: relative; z-index: 1; }
     .eyebrow {
       font-size: 11px;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: var(--forge);
+      color: var(--signal);
       margin-bottom: 32px;
       display: flex;
       align-items: center;
@@ -58,24 +70,24 @@
       content: '';
       width: 28px;
       height: 1px;
-      background: var(--forge);
+      background: var(--signal);
     }
     h1 {
-      font-family: 'Instrument Serif', serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(80px, 16vw, 200px);
-      line-height: 0.88;
-      letter-spacing: -0.04em;
-      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      font-weight: 600;
       margin-bottom: 32px;
     }
-    h1 .accent { color: var(--forge); font-style: italic; }
+    h1 .accent { color: var(--signal); }
     p {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-size: clamp(22px, 3vw, 32px);
-      line-height: 1.3;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
       margin-bottom: 40px;
-      color: var(--ink);
+      color: var(--frost);
     }
     a {
       display: inline-block;
@@ -83,13 +95,13 @@
       font-size: 12px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--ink);
+      color: var(--frost);
       text-decoration: none;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid var(--line-strong);
       padding-bottom: 4px;
       transition: all 0.2s ease;
     }
-    a:hover { color: var(--forge); border-color: var(--forge); }
+    a:hover { color: var(--signal); border-color: var(--signal); }
     a::before { content: '← '; }
   </style>
 </head>
