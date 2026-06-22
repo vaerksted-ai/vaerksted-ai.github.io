@@ -559,6 +559,27 @@
     }
 
     /* ─── Responsive ────────────────────────── */
+
+    /* Tablet / small laptop — ease the wider grids before they collapse */
+    @media (max-width: 1024px) {
+      .container { padding: 0 32px; }
+      .principles-grid,
+      .builders-grid { gap: 48px 56px; }
+      .product {
+        grid-template-columns: 52px minmax(0, 1fr) 120px;
+        grid-template-areas:
+          "num name   status"
+          "num desc   desc";
+        gap: 14px 28px;
+        align-items: start;
+        padding: 48px 0;
+      }
+      .product-num    { grid-area: num; }
+      .product-name   { grid-area: name; }
+      .product-desc   { grid-area: desc; }
+      .product-status { grid-area: status; }
+    }
+
     @media (max-width: 820px) {
       .container { padding: 0 24px; }
       .hero { padding: 64px 0 48px; }
@@ -571,6 +592,7 @@
       .products { padding: 48px 0 64px; }
       .product {
         grid-template-columns: 1fr;
+        grid-template-areas: none;
         gap: 14px;
         padding: 36px 0;
       }
@@ -588,6 +610,31 @@
         padding: 48px 0 40px;
       }
       .footer-right { align-items: flex-start; }
+    }
+
+    /* Small phones — keep the wordmark and runes from overflowing */
+    @media (max-width: 480px) {
+      .container { padding: 0 18px; }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 22px 0;
+      }
+      header .meta { gap: 14px; flex-wrap: wrap; }
+      .eyebrow { margin-bottom: 28px; }
+      .hero { padding: 44px 0 40px; }
+      .hero .eyebrow { margin-bottom: 24px; }
+      .wordmark { font-size: clamp(52px, 16.5vw, 96px); margin-bottom: 16px; }
+      .runes { font-size: clamp(15px, 5vw, 22px); letter-spacing: 0.32em; margin-bottom: 32px; }
+      .tagline { font-size: clamp(22px, 6.4vw, 30px); margin-bottom: 40px; }
+      .rune-ring { width: 260px; height: 260px; top: -54px; right: -108px; opacity: 0.22; }
+      .principle { grid-template-columns: 30px 1fr; gap: 14px; }
+      .principle-name { font-size: 19px; }
+      .product-name { font-size: clamp(38px, 12vw, 52px); }
+      .builder-name { font-size: 19px; }
+      .availability strong { font-size: 21px; }
+      .footer-mark { font-size: 28px; }
     }
 
     /* ─── Entrance ──────────────────────────── */
