@@ -246,7 +246,7 @@
     }
 
     /* ─── Hero ──────────────────────────────── */
-    .hero { padding: 120px 0 96px; position: relative; }
+    .hero { padding: 120px 0 96px; position: relative; overflow-x: clip; }
     .hero .eyebrow { margin-bottom: 36px; }
     .hero > * { position: relative; z-index: 1; }
 
@@ -563,6 +563,8 @@
     /* Tablet / small laptop — ease the wider grids before they collapse */
     @media (max-width: 1024px) {
       .container { padding: 0 32px; }
+      .hero { padding: 96px 0 80px; }
+      .rune-ring { width: 400px; height: 400px; top: -100px; right: -120px; opacity: 0.4; }
       .principles-grid,
       .builders-grid { gap: 48px 56px; }
       .product {
