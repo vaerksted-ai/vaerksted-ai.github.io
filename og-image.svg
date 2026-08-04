@@ -81,7 +81,7 @@
           font-size="16"
           font-weight="500"
           letter-spacing="3"
-          fill="#E8C879">A WORKSHOP OF BUILDERS</text>
+          fill="#E8C879">AI-NATIVE PRODUCTS &amp; CONSULTING</text>
   </g>
 
   <!-- Wordmark -->
@@ -98,7 +98,7 @@
         font-size="44"
         font-weight="400"
         letter-spacing="-1"
-        fill="#EDEFF3">We build AI-native apps, built on principle.</text>
+        fill="#EDEFF3">We build AI-native products, built on principle.</text>
 
   <!-- Footer rule -->
   <line x1="80" y1="540" x2="1120" y2="540" stroke="#E8C879" stroke-opacity="0.20" stroke-width="1"/>
