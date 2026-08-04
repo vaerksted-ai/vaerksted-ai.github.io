@@ -3,12 +3,13 @@
 Output: og-image.png (1200x630, the standard size for Facebook/Twitter/LinkedIn).
 Asgardian theme: cosmos + gold + the Bifröst.
 """
+import os
 import random
 from PIL import Image, ImageDraw, ImageFont
 
 # ─── Canvas ─────────────────────────────────────────
 W, H = 1200, 630
-OUT = "/home/user/vaerksted-ai.github.io"
+OUT = os.path.dirname(os.path.abspath(__file__))
 VOID = (7, 8, 13)          # #07080D
 FROST = (237, 239, 243)    # #EDEFF3
 MIST = (139, 147, 159)     # #8B939F
@@ -159,7 +160,7 @@ def draw_tracked(xy, text, font, fill, track):
 EYEBROW_Y = 90
 for i in range(32):
     draw.line((80 + i, EYEBROW_Y - 1, 80 + i, EYEBROW_Y + 1), fill=bifrost_color(i / 31), width=1)
-draw_tracked((128, EYEBROW_Y - 11), "A WORKSHOP OF BUILDERS", eyebrow_font, GOLD, 3)
+draw_tracked((128, EYEBROW_Y - 11), "AI-NATIVE PRODUCTS & CONSULTING", eyebrow_font, GOLD, 3)
 
 # ─── Wordmark: V æ rksted ───────────────────────────
 WORDMARK_Y = 150
@@ -189,7 +190,7 @@ img.paste(gold_img, (0, 0), rk_mask)
 draw = ImageDraw.Draw(img, "RGBA")
 
 # ─── Tagline ────────────────────────────────────────
-draw.text((80, 446), "We build AI-native apps, built on principle.", fill=FROST, font=tagline_font)
+draw.text((80, 446), "We build AI-native products, built on principle.", fill=FROST, font=tagline_font)
 
 # ─── Footer rule + meta ─────────────────────────────
 draw.line((80, 540, 1120, 540), fill=(*GOLD, 50), width=1)
