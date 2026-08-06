@@ -600,6 +600,12 @@
         gap: 14px;
         padding: 36px 0;
       }
+      /* Reset the named-area placements from the 1024px rule so the
+         children flow in the single column instead of stacking. */
+      .product-num,
+      .product-name,
+      .product-desc,
+      .product-status { grid-area: auto; }
       .product-status { text-align: left; margin-top: 8px; }
       .builders { padding: 56px 0; }
       .builders-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -689,9 +695,9 @@
       <div class="eyebrow">AI-native products &amp; consulting</div>
       <h1 class="wordmark">V<span class="ae">æ</span>rksted</h1>
       <div class="runes" aria-label="Værksted in Elder Futhark runes" title="Værksted · Elder Futhark">ᚹᚨᚱᚲᛊᛏᛖᛞ</div>
-      <p class="tagline">We build AI-native products — and help organizations become AI-native.</p>
+      <p class="tagline">We build AI-native products, built on principle.</p>
       <p class="blurb">
-        Værksted is Danish for <em>workshop</em>. We're an <em>EU-registered</em> company: our own products and the work we do for clients are built on the ground GDPR gives us — real consumer protection, not a compliance checkbox. We don't sell data, we don't run ads, and we don't design software to exploit the people who use it. We'd rather run a reasonable company and build technology that leaves people better off. The principles below are how we mean it.
+        Værksted is Danish for <em>workshop</em>. We're an <em>EU-registered</em> company building AI-native products — and helping other organizations become AI-native. GDPR isn't a checkbox for us; it's the floor. We don't sell data, run ads, or build software to exploit the people who use it. We'd rather run a reasonable company and make technology that leaves people better off.
       </p>
     </section>
 
